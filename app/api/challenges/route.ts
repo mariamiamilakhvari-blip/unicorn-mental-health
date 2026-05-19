@@ -70,7 +70,7 @@ export async function PATCH(req: Request) {
       const today = new Date(); today.setHours(0, 0, 0, 0)
       const challenge = await Challenge.findOne({ _id: challengeId, userId: session.user.id })
       if (!challenge) return NextResponse.json({ error: 'Not found' }, { status: 404 })
-      const alreadyCheckedIn = challenge.checkIns.some(d => {
+      const alreadyCheckedIn = challenge.checkIns.some((d: Date) => {
         const d2 = new Date(d); d2.setHours(0, 0, 0, 0)
         return d2.getTime() === today.getTime()
       })
