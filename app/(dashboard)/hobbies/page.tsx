@@ -89,7 +89,7 @@ export default function HobbiesPage() {
 
   function resetHobby() { localStorage.removeItem('unicorn_hobby'); setHobby(null); setSelected(null); setMethod(''); setStep('pick') }
 
-  const categories = [...new Set(HOBBIES.map(h => h.category))]
+  const categories = Array.from(new Set(HOBBIES.map(h => h.category)))
   const filtered = HOBBIES.filter(h => h.name.toLowerCase().includes(search.toLowerCase()) || h.category.toLowerCase().includes(search.toLowerCase()))
 
   // --- PICK step ---
