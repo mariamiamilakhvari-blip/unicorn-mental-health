@@ -49,7 +49,8 @@ const DEFAULT_MILESTONES = [
   { stage: 'practice', title: 'Practice Regularly', targetMonth: 3, completedAt: null },
 ]
 
-type Hobby = { name: string; icon: string; learningMethod: string; startDate: string; milestones: typeof DEFAULT_MILESTONES }
+type Milestone = { stage: string; title: string; targetMonth: number; completedAt: string | null }
+type Hobby = { name: string; icon: string; learningMethod: string; startDate: string; milestones: Milestone[] }
 type Step = 'pick' | 'learn' | 'tracker'
 
 export default function HobbiesPage() {
