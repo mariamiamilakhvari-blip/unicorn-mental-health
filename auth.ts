@@ -5,8 +5,10 @@ import Apple from 'next-auth/providers/apple'
 import bcrypt from 'bcryptjs'
 import { connectDB } from '@/lib/db'
 import User from '@/lib/models/User'
+import { authConfig } from './auth.config'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
       credentials: {
@@ -84,7 +86,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return session
     },
   },
-  pages: { signIn: '/login', error: '/login' },
-  session: { strategy: 'jwt' },
-  secret: process.env.NEXTAUTH_SECRET,
 })

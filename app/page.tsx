@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, Heart, Zap, Star, CheckCircle2, Menu, X } from 'lucide-react'
-import { getUser } from '@/lib/mock-auth'
+import { useSession } from 'next-auth/react'
 
 const FEATURES = [
   { icon: '🦄', title: 'Circle of Life', desc: 'Track all 8 dimensions of wellbeing — Joy, Career, Relationships, Health, and more — in one beautiful dashboard.' },
@@ -24,15 +24,15 @@ const CIRCLE = ['😊 Joy', '🙏 Spirituality', '🎨 Creativity', '🫂 Social
 
 export default function LandingPage() {
   const router = useRouter()
+  const { data: session } = useSession()
   const [menuOpen, setMenuOpen] = useState(false)
   const [plan, setPlan] = useState<'monthly' | 'yearly'>('yearly')
 
   useEffect(() => {
-    const user = getUser()
-    if (user && localStorage.getItem('unicorn_onboarded') === 'true') {
+    if (session?.user?.onboardingCompleted) {
       router.replace('/home')
     }
-  }, [router])
+  }, [session, router])
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
@@ -86,13 +86,13 @@ export default function LandingPage() {
           <h1 className="text-5xl md:text-7xl font-black text-gray-900 leading-tight mb-6">
             Transform your{' '}
             <span className="bg-gradient-to-r from-unicorn-500 to-unicorn-700 bg-clip-text text-transparent">
-              mental health
+            well-being
             </span>{' '}
             journey
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-500 max-w-3xl mx-auto mb-10 leading-relaxed">
-            Personalised wellness tracking powered by smartwatch data, science-backed micro-actions, and a structured milestone program — all in one place.
+           Biometric wellness tracking, actionablee micro-steps and a structured path to wellness.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

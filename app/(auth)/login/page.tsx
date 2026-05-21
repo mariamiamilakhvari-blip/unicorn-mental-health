@@ -3,11 +3,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
+import { signIn } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
-import { setUser, isOnboarded } from '@/lib/mock-auth'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -15,23 +15,23 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    setError('')
     setLoading(true)
-    // Phase 1: accept any email/password — just store and redirect
-    setTimeout(() => {
-      const name = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, c => c.toUpperCase())
-      setUser({ name, email })
+    const result = await signIn('credentials', { email, password, redirect: false })
+    if (result?.ok) {
+      router.push('/home')
+    } else {
+      setError('Invalid email or password.')
       setLoading(false)
-      router.push(isOnboarded() ? '/home' : '/permissions')
-    }, 600)
+    }
   }
 
-  function handleOAuth(provider: string) {
-    const name = provider === 'google' ? 'Google User' : 'Apple User'
-    setUser({ name, email: `${provider.toLowerCase()}@demo.com` })
-    router.push(isOnboarded() ? '/home' : '/permissions')
+  function handleOAuth(provider: 'google' | 'apple') {
+    signIn(provider, { callbackUrl: '/home' })
   }
 
   return (
@@ -67,6 +67,8 @@ export default function LoginPage() {
               </button>
             </div>
           </div>
+
+          {error && <div className="rounded-lg bg-destructive/10 border border-destructive/20 px-3 py-2.5 text-sm text-destructive">{error}</div>}
 
           <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-unicorn-500 to-unicorn-700 hover:from-unicorn-600 hover:to-unicorn-800 text-white font-semibold h-11 shadow-lg shadow-unicorn-200">
             {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}

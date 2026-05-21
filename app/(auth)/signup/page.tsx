@@ -3,11 +3,11 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
+import { signIn } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
-import { setUser } from '@/lib/mock-auth'
 
 export default function SignupPage() {
   const router = useRouter()
@@ -20,22 +20,40 @@ export default function SignupPage() {
     setForm(f => ({ ...f, [field]: value }))
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
     if (form.password !== form.confirm) { setError('Passwords do not match.'); return }
     if (form.password.length < 8) { setError('Password must be at least 8 characters.'); return }
     setLoading(true)
-    setTimeout(() => {
-      setUser({ name: form.name, email: form.email })
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.name, email: form.email, password: form.password }),
+      })
+      const data = await res.json()
+      if (!res.ok) { setError(data.error ?? 'Registration failed.'); setLoading(false); return }
+
+      const result = await signIn('credentials', {
+        email: form.email,
+        password: form.password,
+        redirect: false,
+      })
+      if (result?.ok) {
+        router.push('/permissions')
+      } else {
+        setError('Account created but sign-in failed. Please sign in manually.')
+        router.push('/login')
+      }
+    } catch {
+      setError('Something went wrong. Please try again.')
       setLoading(false)
-      router.push('/permissions')
-    }, 700)
+    }
   }
 
-  function handleOAuth(provider: string) {
-    setUser({ name: `${provider} User`, email: `${provider.toLowerCase()}@demo.com` })
-    router.push('/permissions')
+  function handleOAuth(provider: 'google' | 'apple') {
+    signIn(provider, { callbackUrl: '/permissions' })
   }
 
   return (
@@ -85,7 +103,7 @@ export default function SignupPage() {
         </div>
 
         <div className="space-y-3">
-          <button onClick={() => handleOAuth('Google')} className="flex w-full items-center justify-center gap-3 rounded-xl border border-border h-11 px-4 text-sm font-medium hover:bg-muted/50 transition-colors">
+          <button onClick={() => handleOAuth('google')} className="flex w-full items-center justify-center gap-3 rounded-xl border border-border h-11 px-4 text-sm font-medium hover:bg-muted/50 transition-colors">
             <svg className="h-5 w-5" viewBox="0 0 24 24">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
               <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -94,7 +112,7 @@ export default function SignupPage() {
             </svg>
             Continue with Google
           </button>
-          <button onClick={() => handleOAuth('Apple')} className="flex w-full items-center justify-center gap-3 rounded-xl bg-black h-11 px-4 text-sm font-medium text-white hover:bg-gray-900 transition-colors">
+          <button onClick={() => handleOAuth('apple')} className="flex w-full items-center justify-center gap-3 rounded-xl bg-black h-11 px-4 text-sm font-medium text-white hover:bg-gray-900 transition-colors">
             <svg className="h-5 w-5 fill-white" viewBox="0 0 24 24">
               <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.3.07 2.19.74 2.95.76 1.13-.2 2.21-.89 3.42-.83 1.44.07 2.53.61 3.26 1.57-3 1.83-2.5 5.83.52 7.02-.61 1.5-1.4 2.96-2.15 4.36zm-4.02-17.3c.05 2.06-1.6 3.73-3.44 3.62-.2-1.96 1.49-3.71 3.44-3.62z"/>
             </svg>

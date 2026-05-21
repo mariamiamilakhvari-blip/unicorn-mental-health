@@ -2,9 +2,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { setOnboarded } from '@/lib/mock-auth'
 
 type Question = {
   id: string
@@ -33,10 +33,12 @@ const QUESTIONS: Question[] = [
 
 export default function QuestionsPage() {
   const router = useRouter()
+  const { update } = useSession()
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string | string[]>>({})
   const [textInput, setTextInput] = useState('')
   const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState('')
 
   const q = QUESTIONS[step]
   const isLast = step === QUESTIONS.length - 1
@@ -61,7 +63,7 @@ export default function QuestionsPage() {
     return ((answers[q.id] as string[]) ?? []).length > 0
   }
 
-  function handleNext() {
+  async function handleNext() {
     const final = q.type === 'text' ? { ...answers, [q.id]: textInput.trim() } : answers
     if (!isLast) {
       if (q.type === 'text') setAnswers(final)
@@ -69,10 +71,23 @@ export default function QuestionsPage() {
       setTextInput('')
     } else {
       setSaving(true)
+      setSaveError('')
       const profile = q.type === 'text' ? final : answers
-      localStorage.setItem('unicorn_profile', JSON.stringify(profile))
-      setOnboarded()
-      setTimeout(() => router.push('/home'), 500)
+      const permissions = JSON.parse(localStorage.getItem('unicorn_permissions') ?? '{}')
+      const smartwatchProvider = localStorage.getItem('unicorn_smartwatch') || null
+      try {
+        const res = await fetch('/api/onboarding', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profile, permissions, smartwatchProvider }),
+        })
+        if (!res.ok) throw new Error('Failed to save')
+        await update()
+        router.push('/home')
+      } catch {
+        setSaveError('Failed to save your profile. Please try again.')
+        setSaving(false)
+      }
     }
   }
 
@@ -128,6 +143,8 @@ export default function QuestionsPage() {
           })}
         </div>
       )}
+
+      {saveError && <div className="mb-3 rounded-lg bg-destructive/10 border border-destructive/20 px-3 py-2.5 text-sm text-destructive">{saveError}</div>}
 
       <div className="flex gap-3">
         {step > 0 && (
