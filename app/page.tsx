@@ -163,7 +163,7 @@ export default function LandingPage() {
             Journey
           </h1>
           <p className="text-xl text-gray-600 max-w-xl mb-10 leading-relaxed">
-            Biometric wellness tracking, actionable micro-steps and a structured path to well-being
+            Biometric tracking, actionable micro-steps and a structured path to well-being
           </p>
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <Link href="/signup" className="flex items-center gap-2 bg-velvet-500 text-white font-bold px-8 py-4 rounded-full shadow-xl hover:bg-velvet-600 transition-all text-base">
@@ -235,7 +235,7 @@ export default function LandingPage() {
             <p className="text-xs font-mono tracking-widest text-gray-400 uppercase mb-4">002/ Features</p>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <h2 className="text-5xl font-black text-black">Everything You Need To Thrive</h2>
-              <p className="text-gray-600 max-w-xs leading-relaxed">Six powerful modules working together to support every dimension of your wellbeing</p>
+              <p className="text-gray-600 max-w-xs leading-relaxed">Six powerful modules to support every dimension of your well-being</p>
             </div>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
