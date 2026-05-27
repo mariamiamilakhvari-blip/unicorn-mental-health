@@ -2,14 +2,12 @@ import Link from 'next/link'
 
 export default function OnboardingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-unicorn-50 via-white to-sage-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-ochre-50 via-white to-sage-50 flex flex-col">
       {/* Top bar */}
       <header className="border-b border-gray-100 bg-white/70 backdrop-blur-sm px-8 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-unicorn-500 to-unicorn-700 flex items-center justify-center">
-            <span className="text-base">🦄</span>
-          </div>
-          <span className="font-bold text-gray-900">Unicorn</span>
+          <div className="w-8 h-8 rounded-lg bg-velvet-500 flex items-center justify-center text-base">🦄</div>
+          <span className="font-bold text-black">Unicorn</span>
         </Link>
         <p className="text-sm text-muted-foreground">Setting up your profile</p>
       </header>

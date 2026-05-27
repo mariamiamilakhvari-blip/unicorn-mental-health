@@ -67,7 +67,7 @@ export function CalendarWidget({ activeDates = [] }: CalendarWidgetProps) {
             {day && (
               <div className={`w-7 h-7 flex items-center justify-center rounded-full text-xs font-medium transition-colors ${
                 isToday(day)
-                  ? 'bg-gradient-to-br from-unicorn-500 to-unicorn-700 text-white font-bold shadow-md shadow-unicorn-200'
+                  ? 'bg-gradient-to-br from-ochre-400 to-velvet-600 text-white font-bold shadow-md shadow-ochre-100'
                   : hasActivity(day)
                   ? 'bg-sage-100 text-sage-700 font-semibold'
                   : 'text-gray-600 hover:bg-muted cursor-pointer'

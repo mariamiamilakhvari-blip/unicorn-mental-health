@@ -119,7 +119,7 @@ export default function HobbiesPage() {
                   <button
                     key={h.name}
                     onClick={() => { setSelected(h); setStep('learn') }}
-                    className="flex flex-col items-center p-3 rounded-xl bg-white border border-border hover:border-unicorn-400 hover:shadow-md transition-all group"
+                    className="flex flex-col items-center p-3 rounded-xl bg-white border border-border hover:border-ochre-300 hover:shadow-md transition-all group"
                   >
                     <span className="text-3xl mb-1.5 group-hover:scale-110 transition-transform">{h.icon}</span>
                     <span className="text-xs font-medium text-gray-700 text-center leading-tight">{h.name}</span>
@@ -141,7 +141,7 @@ export default function HobbiesPage() {
       </button>
 
       <div className="flex items-center gap-4">
-        <div className="w-16 h-16 rounded-2xl bg-unicorn-50 border border-unicorn-200 flex items-center justify-center text-4xl">
+        <div className="w-16 h-16 rounded-2xl bg-ochre-50 border border-ochre-100 flex items-center justify-center text-4xl">
           {selected.icon}
         </div>
         <div>
@@ -155,7 +155,7 @@ export default function HobbiesPage() {
           <button
             key={m.id}
             onClick={() => setMethod(m.label)}
-            className={`flex items-center gap-3 p-4 rounded-xl border text-left transition-all ${method === m.label ? 'border-unicorn-500 bg-unicorn-50 ring-2 ring-unicorn-500/20' : 'border-border bg-white hover:border-unicorn-300 hover:shadow-sm'}`}
+            className={`flex items-center gap-3 p-4 rounded-xl border text-left transition-all ${method === m.label ? 'border-ochre-400 bg-ochre-50 ring-2 ring-ochre-400/20' : 'border-border bg-white hover:border-ochre-200 hover:shadow-sm'}`}
           >
             <span className="text-2xl">{m.icon}</span>
             <span className="text-sm font-medium text-gray-800">{m.label}</span>
@@ -166,7 +166,7 @@ export default function HobbiesPage() {
       <Button
         onClick={saveHobby}
         disabled={!method}
-        className="h-12 px-8 bg-gradient-to-r from-unicorn-500 to-unicorn-700 text-white font-semibold rounded-xl shadow-lg shadow-unicorn-200"
+        className="h-12 px-8 bg-ochre-400 text-black hover:bg-velvet-500 hover:text-white font-semibold rounded-xl "
       >
         Start My Milestone Journey 🚀
       </Button>
@@ -181,7 +181,7 @@ export default function HobbiesPage() {
           <h1 className="text-3xl font-bold text-gray-900">My Hobby Journey</h1>
           <p className="text-muted-foreground mt-1">Track your 3-month milestone program</p>
         </div>
-        <button onClick={resetHobby} className="text-sm font-semibold text-unicorn-600 hover:underline">
+        <button onClick={resetHobby} className="text-sm font-semibold text-velvet-500 hover:underline">
           Change hobby
         </button>
       </div>
@@ -204,7 +204,7 @@ export default function HobbiesPage() {
           {/* Completion stats */}
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-border">
             <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-              <Trophy className="h-4 w-4 text-unicorn-500" /> Progress
+              <Trophy className="h-4 w-4 text-ochre-400" /> Progress
             </h3>
             <div className="space-y-2">
               {[1, 2, 3].map(month => {
@@ -218,7 +218,7 @@ export default function HobbiesPage() {
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
                       <div
-                        className="h-full bg-gradient-to-r from-unicorn-400 to-unicorn-600 rounded-full transition-all"
+                        className="h-full bg-gradient-to-r from-ochre-300 to-velvet-500 rounded-full transition-all"
                         style={{ width: `${total ? (done / total) * 100 : 0}%` }}
                       />
                     </div>

@@ -22,13 +22,13 @@ export function BottomNav() {
               key={href}
               href={href}
               className={`flex-1 flex flex-col items-center gap-1 py-3 transition-colors ${
-                active ? 'text-unicorn-600' : 'text-muted-foreground hover:text-unicorn-500'
+                active ? 'text-velvet-500' : 'text-muted-foreground hover:text-ochre-400'
               }`}
             >
-              <div className={`p-1.5 rounded-xl transition-colors ${active ? 'bg-unicorn-100' : ''}`}>
+              <div className={`p-1.5 rounded-xl transition-colors ${active ? 'bg-ochre-100' : ''}`}>
                 <Icon className="h-5 w-5" strokeWidth={active ? 2.5 : 2} />
               </div>
-              <span className={`text-[10px] font-medium ${active ? 'text-unicorn-600' : ''}`}>{label}</span>
+              <span className={`text-[10px] font-medium ${active ? 'text-velvet-500' : ''}`}>{label}</span>
             </Link>
           )
         })}

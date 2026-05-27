@@ -57,7 +57,7 @@ export default function SignupPage() {
   }
 
   return (
-    <Card className="shadow-xl shadow-unicorn-100/50 border-0">
+    <Card className="shadow-xl shadow-ochre-100/50 border-0">
       <CardContent className="pt-6 px-6 pb-8">
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Create your account</h2>
@@ -89,7 +89,7 @@ export default function SignupPage() {
 
           {error && <div className="rounded-lg bg-destructive/10 border border-destructive/20 px-3 py-2.5 text-sm text-destructive">{error}</div>}
 
-          <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-unicorn-500 to-unicorn-700 hover:from-unicorn-600 hover:to-unicorn-800 text-white font-semibold h-11 shadow-lg shadow-unicorn-200">
+          <Button type="submit" disabled={loading} className="w-full bg-velvet-500 text-white hover:bg-velvet-600 font-semibold h-11">
             {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
             Create Account
           </Button>
@@ -122,7 +122,7 @@ export default function SignupPage() {
 
         <p className="text-center text-sm text-muted-foreground mt-6">
           Already have an account?{' '}
-          <Link href="/login" className="font-semibold text-unicorn-600 hover:underline">Sign in</Link>
+          <Link href="/login" className="font-semibold text-velvet-500 hover:underline">Sign in</Link>
         </p>
       </CardContent>
     </Card>

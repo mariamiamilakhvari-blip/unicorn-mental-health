@@ -63,13 +63,13 @@ function ResetForm() {
           <Input id="confirm" type={showPw ? 'text' : 'password'} placeholder="Repeat password" value={confirm} onChange={e => setConfirm(e.target.value)} required />
         </div>
         {error && <div className="rounded-lg bg-destructive/10 border border-destructive/20 px-3 py-2.5 text-sm text-destructive">{error}</div>}
-        <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-unicorn-500 to-unicorn-700 text-white font-semibold h-11">
+        <Button type="submit" disabled={loading} className="w-full bg-ochre-400 text-black hover:bg-velvet-500 hover:text-white font-semibold h-11">
           {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
           Reset Password
         </Button>
       </form>
       <p className="text-center text-sm text-muted-foreground mt-4">
-        <Link href="/login" className="font-semibold text-unicorn-600 hover:underline">Back to sign in</Link>
+        <Link href="/login" className="font-semibold text-velvet-500 hover:underline">Back to sign in</Link>
       </p>
     </>
   )
@@ -77,7 +77,7 @@ function ResetForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <Card className="shadow-xl shadow-unicorn-100/50 border-0">
+    <Card className="shadow-xl shadow-ochre-100/50 border-0">
       <CardContent className="pt-6 px-6 pb-8">
         <Suspense fallback={<div className="py-8 text-center text-muted-foreground text-sm">Loading…</div>}>
           <ResetForm />

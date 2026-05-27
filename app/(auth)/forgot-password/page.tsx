@@ -19,7 +19,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <Card className="shadow-xl shadow-unicorn-100/50 border-0">
+    <Card className="shadow-xl shadow-ochre-100/50 border-0">
       <CardContent className="pt-6 px-6 pb-8">
         {sent ? (
           <div className="text-center py-4">
@@ -30,7 +30,7 @@ export default function ForgotPasswordPage() {
             <p className="text-sm text-muted-foreground">
               If an account with <strong>{email}</strong> exists, a reset link has been sent.
             </p>
-            <Link href="/login" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-unicorn-600 hover:underline">
+            <Link href="/login" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-velvet-500 hover:underline">
               <ArrowLeft className="h-4 w-4" /> Back to sign in
             </Link>
           </div>
@@ -45,13 +45,13 @@ export default function ForgotPasswordPage() {
                 <Label htmlFor="email">Email address</Label>
                 <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} required />
               </div>
-              <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-unicorn-500 to-unicorn-700 text-white font-semibold h-11">
+              <Button type="submit" disabled={loading} className="w-full bg-ochre-400 text-black hover:bg-velvet-500 hover:text-white font-semibold h-11">
                 {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
                 Send Reset Link
               </Button>
             </form>
             <p className="text-center text-sm text-muted-foreground mt-6">
-              <Link href="/login" className="font-semibold text-unicorn-600 hover:underline">Back to sign in</Link>
+              <Link href="/login" className="font-semibold text-velvet-500 hover:underline">Back to sign in</Link>
             </p>
           </>
         )}

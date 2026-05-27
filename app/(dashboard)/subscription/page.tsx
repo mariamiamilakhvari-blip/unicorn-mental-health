@@ -38,7 +38,7 @@ export default function SubscriptionPage() {
       </div>
 
       {/* Trial banner */}
-      <div className="bg-gradient-to-r from-unicorn-500 to-unicorn-700 rounded-2xl p-5 text-white flex items-center gap-4 max-w-2xl mx-auto">
+      <div className="bg-gradient-to-r from-ochre-400 to-velvet-600 rounded-2xl p-5 text-white flex items-center gap-4 max-w-2xl mx-auto">
         <div className="bg-white/20 p-3 rounded-xl shrink-0">
           <Sparkles className="h-6 w-6" />
         </div>
@@ -97,28 +97,28 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Premium card */}
-        <div className="bg-gradient-to-br from-unicorn-600 to-unicorn-800 rounded-2xl p-8 text-white shadow-xl shadow-unicorn-200 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-velvet-500 to-velvet-700 rounded-2xl p-8 text-white shadow-xl shadow-ochre-100 relative overflow-hidden">
           <div className="absolute top-4 right-4">
             <Crown className="h-8 w-8 text-white/30" />
           </div>
           <div className="mb-6">
-            <span className="text-sm font-semibold text-unicorn-200 uppercase tracking-wide">Premium</span>
+            <span className="text-sm font-semibold text-ochre-100 uppercase tracking-wide">Premium</span>
             <div className="mt-2">
               <span className="text-4xl font-black">
                 {plan === 'yearly' ? '$59.99' : '$4.99'}
               </span>
-              <span className="text-unicorn-200 ml-1">/ {plan === 'yearly' ? 'year' : 'month'}</span>
+              <span className="text-ochre-100 ml-1">/ {plan === 'yearly' ? 'year' : 'month'}</span>
             </div>
             {plan === 'yearly'
               ? <p className="text-sage-300 text-sm font-semibold mt-1">That&apos;s just $5/month — save ${(4.99 * 12 - 59.99).toFixed(2)}</p>
-              : <p className="text-unicorn-200 text-sm mt-1">Billed monthly · cancel anytime</p>}
+              : <p className="text-ochre-100 text-sm mt-1">Billed monthly · cancel anytime</p>}
           </div>
 
           <div className="grid grid-cols-2 gap-2.5 mb-8">
             {FEATURES.map(f => (
               <div key={f.text} className="flex items-center gap-2">
                 <span className="text-sm shrink-0">{f.icon}</span>
-                <span className="text-xs text-unicorn-100 leading-tight">{f.text}</span>
+                <span className="text-xs text-ochre-100 leading-tight">{f.text}</span>
               </div>
             ))}
           </div>
@@ -126,7 +126,7 @@ export default function SubscriptionPage() {
           <Button
             onClick={subscribe}
             disabled={loading}
-            className="w-full h-12 bg-white text-unicorn-700 hover:bg-unicorn-50 font-bold rounded-xl text-base shadow-lg"
+            className="w-full h-12 bg-white text-velvet-600 hover:bg-ochre-50 font-bold rounded-xl text-base shadow-lg"
           >
             {loading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Zap className="h-5 w-5 mr-2" />}
             Start after trial · {plan === 'yearly' ? '$59.99/yr' : '$4.99/mo'}

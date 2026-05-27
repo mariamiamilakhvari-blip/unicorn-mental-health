@@ -35,7 +35,7 @@ export default function LoginPage() {
   }
 
   return (
-    <Card className="shadow-xl shadow-unicorn-100/50 border-0">
+    <Card className="shadow-xl shadow-ochre-100/50 border-0">
       <CardContent className="pt-6 px-6 pb-8">
         <div className="mb-6">
           <h2 className="text-2xl font-bold text-gray-900">Welcome back</h2>
@@ -50,7 +50,7 @@ export default function LoginPage() {
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
               <Label htmlFor="password">Password</Label>
-              <Link href="/forgot-password" className="text-xs text-unicorn-600 hover:underline font-medium">Forgot password?</Link>
+              <Link href="/forgot-password" className="text-xs text-velvet-500 hover:underline font-medium">Forgot password?</Link>
             </div>
             <div className="relative">
               <Input
@@ -70,7 +70,7 @@ export default function LoginPage() {
 
           {error && <div className="rounded-lg bg-destructive/10 border border-destructive/20 px-3 py-2.5 text-sm text-destructive">{error}</div>}
 
-          <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-unicorn-500 to-unicorn-700 hover:from-unicorn-600 hover:to-unicorn-800 text-white font-semibold h-11 shadow-lg shadow-unicorn-200">
+          <Button type="submit" disabled={loading} className="w-full bg-velvet-500 text-white hover:bg-velvet-600 font-semibold h-11">
             {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
             Sign In
           </Button>
@@ -103,7 +103,7 @@ export default function LoginPage() {
 
         <p className="text-center text-sm text-muted-foreground mt-6">
           Don&apos;t have an account?{' '}
-          <Link href="/signup" className="font-semibold text-unicorn-600 hover:underline">Sign up</Link>
+          <Link href="/signup" className="font-semibold text-velvet-500 hover:underline">Sign up</Link>
         </p>
       </CardContent>
     </Card>

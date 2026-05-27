@@ -22,7 +22,7 @@ export function MicroActionCard({ targetIntervention }: MicroActionCardProps) {
   const action = pool[new Date().getDate() % pool.length]
 
   return (
-    <div className="bg-gradient-to-r from-unicorn-500 to-unicorn-700 rounded-2xl p-5 text-white shadow-lg shadow-unicorn-200">
+    <div className="bg-gradient-to-r from-ochre-400 to-velvet-600 rounded-2xl p-5 text-white shadow-lg shadow-ochre-100">
       <div className="flex items-start gap-3">
         <div className="bg-white/20 p-2 rounded-xl shrink-0">
           <Sparkles className="h-5 w-5" />

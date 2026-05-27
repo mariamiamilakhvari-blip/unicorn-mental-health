@@ -58,4 +58,4 @@
 html { scroll-behavior: smooth; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { @apply bg-unicorn-300 rounded-full; }
+::-webkit-scrollbar-thumb { @apply bg-ochre-300 rounded-full; }

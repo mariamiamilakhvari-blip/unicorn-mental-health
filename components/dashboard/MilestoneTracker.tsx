@@ -37,7 +37,7 @@ export function MilestoneTracker({ hobbyName, hobbyIcon, startDate, milestones, 
   return (
     <div>
       <div className="flex items-center gap-3 mb-5">
-        <div className="w-12 h-12 rounded-2xl bg-unicorn-50 border border-unicorn-200 flex items-center justify-center text-2xl">
+        <div className="w-12 h-12 rounded-2xl bg-ochre-50 border border-ochre-100 flex items-center justify-center text-2xl">
           {hobbyIcon}
         </div>
         <div>
@@ -50,7 +50,7 @@ export function MilestoneTracker({ hobbyName, hobbyIcon, startDate, milestones, 
       <div className="mb-5">
         <div className="h-2 bg-muted rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-unicorn-400 to-unicorn-600 rounded-full transition-all duration-500"
+            className="h-full bg-gradient-to-r from-ochre-300 to-velvet-500 rounded-full transition-all duration-500"
             style={{ width: `${(completedCount / milestones.length) * 100}%` }}
           />
         </div>
@@ -77,7 +77,7 @@ export function MilestoneTracker({ hobbyName, hobbyIcon, startDate, milestones, 
                     className={`w-full flex items-center gap-3 p-3.5 rounded-xl border text-left transition-all ${
                       done
                         ? 'bg-sage-50 border-sage-200'
-                        : 'bg-white border-border hover:border-unicorn-300'
+                        : 'bg-white border-border hover:border-ochre-200'
                     }`}
                   >
                     {updating ? (

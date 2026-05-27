@@ -45,17 +45,29 @@ const config: Config = {
           foreground: 'hsl(var(--popover-foreground))',
         },
         // Brand colors
-        unicorn: {
-          50:  '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
+        ochre: {
+          50:  '#fffef9',
+          100: '#fefdf0',
+          200: '#fefadc',
+          300: '#fef5c0',
+          400: '#fef08a', // pastel yellow
+          500: '#fde047',
+          600: '#facc15',
+          700: '#ca8a04',
+          800: '#a16207',
+          900: '#713f12',
+        },
+        velvet: {
+          50:  '#f2ebff',
+          100: '#e2d4fe',
+          200: '#c4a8fc',
+          300: '#9f74f0',
+          400: '#7a4bdf',
+          500: '#5e2d8f', // velvet purple
+          600: '#4a1f73',
+          700: '#371457',
+          800: '#240d3b',
+          900: '#12061f',
         },
         sage: {
           50:  '#f0fdf4',

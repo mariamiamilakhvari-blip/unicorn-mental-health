@@ -6,7 +6,7 @@ import { Providers } from '@/components/providers'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Unicorn Mental Health',
+  title: 'Unicorn Well-Being',
   description: 'Your personal mental health and well-being companion',
   icons: { icon: '/favicon.ico' },
 }

@@ -60,7 +60,7 @@ export default function ProfilePage() {
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-border">
         <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">Account</h2>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-unicorn-400 to-unicorn-600 flex items-center justify-center">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-ochre-300 to-velvet-500 flex items-center justify-center">
             <User className="h-8 w-8 text-white" />
           </div>
           <div>
@@ -124,7 +124,7 @@ export default function ProfilePage() {
               <p className="text-xs text-muted-foreground">Smartwatch — Phase 2: live sync</p>
             </div>
           </div>
-          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-unicorn-100 text-unicorn-700">Connected</span>
+          <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-ochre-100 text-velvet-600">Connected</span>
         </div>
       </div>
 

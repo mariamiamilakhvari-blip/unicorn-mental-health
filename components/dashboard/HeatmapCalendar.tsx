@@ -40,7 +40,7 @@ export function HeatmapCalendar({ startDate, checkIns, totalDays = 21 }: Heatmap
             title={`Day ${dayNum}`}
             className={`aspect-square rounded-lg flex items-center justify-center text-[10px] font-semibold transition-colors ${
               isToday
-                ? 'ring-2 ring-unicorn-500 bg-unicorn-50 text-unicorn-700'
+                ? 'ring-2 ring-ochre-400 bg-ochre-50 text-velvet-600'
                 : isChecked
                 ? 'bg-sage-400 text-white'
                 : isPast

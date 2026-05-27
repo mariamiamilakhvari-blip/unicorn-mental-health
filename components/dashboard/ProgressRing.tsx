@@ -38,7 +38,7 @@ export function ProgressRing({ progress, size = 100, strokeWidth = 10, label }: 
           </defs>
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-xl font-bold text-unicorn-700">{Math.round(progress)}%</span>
+          <span className="text-xl font-bold text-velvet-600">{Math.round(progress)}%</span>
         </div>
       </div>
       {label && <span className="text-xs font-medium text-muted-foreground text-center">{label}</span>}

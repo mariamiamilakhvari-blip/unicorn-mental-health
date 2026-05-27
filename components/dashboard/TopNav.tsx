@@ -33,7 +33,7 @@ export function TopNav() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
         {/* Logo */}
         <Link href="/home" className="flex items-center gap-2.5 shrink-0">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-unicorn-500 to-unicorn-700 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-ochre-400 to-velvet-600 flex items-center justify-center">
             <span className="text-base">🦄</span>
           </div>
           <span className="font-bold text-gray-900 text-lg">Unicorn</span>
@@ -49,7 +49,7 @@ export function TopNav() {
                 href={link.href}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   active
-                    ? 'bg-unicorn-50 text-unicorn-700'
+                    ? 'bg-ochre-50 text-velvet-600'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                 }`}
               >
@@ -65,7 +65,7 @@ export function TopNav() {
             onClick={() => setMenuOpen(o => !o)}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
           >
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-unicorn-400 to-unicorn-600 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-ochre-300 to-velvet-500 flex items-center justify-center">
               <User className="h-4 w-4 text-white" />
             </div>
             <span className="text-sm font-medium text-gray-700 hidden sm:block">{userName || 'Account'}</span>
@@ -106,7 +106,7 @@ export function TopNav() {
               key={link.href}
               href={link.href}
               className={`shrink-0 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                active ? 'bg-unicorn-50 text-unicorn-700' : 'text-gray-500 hover:text-gray-800'
+                active ? 'bg-ochre-50 text-velvet-600' : 'text-gray-500 hover:text-gray-800'
               }`}
             >
               {link.label}

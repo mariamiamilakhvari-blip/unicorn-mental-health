@@ -94,7 +94,7 @@ export default function ChallengesPage() {
         </div>
         <Button
           onClick={newChallenge}
-          className="bg-gradient-to-r from-unicorn-500 to-unicorn-700 text-white rounded-xl h-10 px-5 font-semibold shadow-md shadow-unicorn-200"
+          className="bg-ochre-400 text-black hover:bg-velvet-500 hover:text-white rounded-xl h-10 px-5 font-semibold "
         >
           <Zap className="h-4 w-4 mr-2" /> New Challenge
         </Button>
@@ -105,7 +105,7 @@ export default function ChallengesPage() {
           <div className="text-6xl mb-4">⚡</div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">No active challenge yet</h3>
           <p className="text-muted-foreground mb-6">Get a random 21-day challenge across social, business, or relationships.</p>
-          <Button onClick={newChallenge} className="bg-gradient-to-r from-unicorn-500 to-unicorn-700 text-white rounded-xl px-6">
+          <Button onClick={newChallenge} className="bg-ochre-400 text-black hover:bg-velvet-500 hover:text-white rounded-xl px-6">
             Get My First Challenge
           </Button>
         </div>
@@ -156,7 +156,7 @@ export default function ChallengesPage() {
           <div className="xl:col-span-2 space-y-6">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-border">
               <h3 className="font-semibold text-gray-900 mb-5 flex items-center gap-2">
-                <Trophy className="h-4 w-4 text-unicorn-500" /> Your Progress
+                <Trophy className="h-4 w-4 text-ochre-400" /> Your Progress
               </h3>
               <div className="flex justify-center mb-6">
                 <ProgressRing progress={progress} size={120} label="Complete" />

@@ -35,7 +35,7 @@ export function CircleOfLife({ scores = {}, onScoreChange }: CircleOfLifeProps) 
         <h3 className="text-sm font-semibold text-gray-700">Circle of Life</h3>
         {avg > 0 && (
           <span className="text-xs text-muted-foreground">
-            Average: <span className="font-semibold text-unicorn-600">{avg}/10</span>
+            Average: <span className="font-semibold text-velvet-500">{avg}/10</span>
           </span>
         )}
       </div>
@@ -48,7 +48,7 @@ export function CircleOfLife({ scores = {}, onScoreChange }: CircleOfLifeProps) 
             <div key={id} className="flex flex-col">
               <button
                 onClick={() => setActive(isOpen ? null : id)}
-                className={`flex flex-col items-center p-3 rounded-xl border transition-all hover:scale-105 active:scale-95 ${color} ${isOpen ? 'ring-2 ring-unicorn-400 shadow-md' : ''}`}
+                className={`flex flex-col items-center p-3 rounded-xl border transition-all hover:scale-105 active:scale-95 ${color} ${isOpen ? 'ring-2 ring-ochre-300 shadow-md' : ''}`}
               >
                 <span className="text-2xl leading-none mb-1">{emoji}</span>
                 <span className="text-[10px] font-semibold text-center leading-tight">{label}</span>
@@ -73,8 +73,8 @@ export function CircleOfLife({ scores = {}, onScoreChange }: CircleOfLifeProps) 
                         onClick={() => handleScore(id, n)}
                         className={`h-7 rounded-lg text-[11px] font-bold transition-all ${
                           score === n
-                            ? 'bg-unicorn-500 text-white shadow'
-                            : 'bg-muted hover:bg-unicorn-100 hover:text-unicorn-700 text-gray-600'
+                            ? 'bg-ochre-400 text-white shadow'
+                            : 'bg-muted hover:bg-ochre-100 hover:text-velvet-600 text-gray-600'
                         }`}
                       >
                         {n}

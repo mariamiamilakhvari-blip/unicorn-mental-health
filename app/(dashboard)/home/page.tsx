@@ -95,7 +95,7 @@ export default function HomePage() {
 
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-border">
             <div className="flex items-center gap-2 mb-5">
-              <Activity className="h-5 w-5 text-unicorn-500" />
+              <Activity className="h-5 w-5 text-ochre-400" />
               <h2 className="text-lg font-semibold text-gray-900">Circle of Life</h2>
             </div>
             <CircleOfLife scores={circleScores} onScoreChange={handleScoreChange} />
@@ -109,13 +109,13 @@ export default function HomePage() {
           {/* Notifications */}
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-border">
             <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-              <Zap className="h-4 w-4 text-unicorn-500" />
+              <Zap className="h-4 w-4 text-ochre-400" />
               Recent Nudges
             </h3>
             <div className="space-y-3">
               {SAMPLE_NOTIFICATIONS.map(n => (
                 <div key={n.id} className="flex gap-3 items-start">
-                  <div className="w-9 h-9 rounded-xl bg-unicorn-50 flex items-center justify-center text-sm shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-ochre-50 flex items-center justify-center text-sm shrink-0">
                     {n.type === 'circle-of-life' ? '🌀' : n.type === 'challenge' ? '⚡' : '🌟'}
                   </div>
                   <div className="min-w-0">
@@ -128,7 +128,7 @@ export default function HomePage() {
           </div>
 
           {/* Quick links */}
-          <div className="bg-gradient-to-br from-unicorn-500 to-unicorn-700 rounded-2xl p-5 text-white">
+          <div className="bg-gradient-to-br from-ochre-400 to-velvet-600 rounded-2xl p-5 text-white">
             <h3 className="font-semibold mb-3 flex items-center gap-2">
               <Star className="h-4 w-4" /> Quick Actions
             </h3>
