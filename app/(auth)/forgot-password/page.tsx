@@ -45,10 +45,12 @@ export default function ForgotPasswordPage() {
                 <Label htmlFor="email">Email address</Label>
                 <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} required />
               </div>
-              <Button type="submit" disabled={loading} className="w-full bg-ochre-400 text-black hover:bg-velvet-500 hover:text-white font-semibold h-11">
-                {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-                Send Reset Link
-              </Button>
+              <div className="flex justify-center">
+                <Button type="submit" disabled={loading} className="h-11 px-16 bg-velvet-500 text-white hover:bg-velvet-600 font-semibold rounded-xl">
+                  {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                  Send Reset Link
+                </Button>
+              </div>
             </form>
             <p className="text-center text-sm text-muted-foreground mt-6">
               <Link href="/login" className="font-semibold text-velvet-500 hover:underline">Back to sign in</Link>

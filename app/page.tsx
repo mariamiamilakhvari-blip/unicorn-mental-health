@@ -6,16 +6,16 @@ import { ArrowRight, CheckCircle2, Menu, X } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 
 const FEATURES = [
-  { title: 'Circle of Life', desc: 'Track all 8 dimensions of wellbeing — Joy, Career, Relationships, Health, and more — in one beautiful dashboard.' },
-  { title: 'Random Challenges', desc: '21-day micro-challenges across social life, business, and relationships, with daily check-ins and progress tracking.' },
-  { title: 'Milestone Hobbies', desc: 'Choose a hobby and follow a structured 3-month program with weekly encouragement and stage-by-stage milestones.' },
-  { title: 'Garmin Integration', desc: 'Sync heart rate, stress, sleep quality, and activity data directly from your Garmin smartwatch in real time.' },
-  { title: 'Daily Micro-Actions', desc: 'Receive bite-sized, personalised wellness nudges every 48 hours, tailored to your profile and goals.' },
-  { title: 'Smart Analytics', desc: 'See your progress across every life dimension with heatmaps, progress rings, and insightful trend charts.' },
+  { title: 'Circle of Life', desc: 'Track all 8 dimensions of well-being' },
+  { title: 'Random Challenges', desc: '21-day micro-challenges and progress tracking' },
+  { title: 'Milestone Hobbies', desc: 'Choose a hobby and follow stage-by-stage milestones' },
+  { title: 'Garmin Integration', desc: 'Sync heart rate, stress, sleep quality, and activity data directly from your Garmin smartwatch in real time' },
+  { title: 'Daily Micro-Actions', desc: 'Receive bite-sized, personalised wellness nudges every 48 hours, tailored to your profile and goals' },
+  { title: 'Smart Analytics', desc: 'See your progress across every life dimension with progress rings, and insightful trend charts' },
 ]
 
 const STEPS = [
-  { num: '01', title: 'Create your account', desc: 'Sign up with email or continue with Google or Apple — takes under 60 seconds.' },
+  { num: '01', title: 'Create your account', desc: 'Sign up with email or continue with Google or Apple. It takes under 60 seconds.' },
   { num: '02', title: 'Build your profile', desc: 'Answer 14 personalised questions about your lifestyle, goals, and motivators.' },
   { num: '03', title: 'Live your best life', desc: 'Get your personalised dashboard with daily micro-actions and smartwatch-powered insights.' },
 ]
@@ -122,7 +122,7 @@ export default function LandingPage() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-xl bg-ochre-200 text-black hover:bg-ochre-300 transition-colors">Sign in</Link>
+            <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-xl border-2 border-ochre-300 bg-transparent text-black hover:bg-ochre-50 transition-colors">Sign in</Link>
             <Link href="/signup" className="text-sm font-semibold bg-velvet-500 text-white px-5 py-2.5 rounded-xl shadow-md hover:bg-velvet-600 transition-all flex items-center gap-1.5">
               Get started free <ArrowRight className="h-4 w-4" />
             </Link>
@@ -148,21 +148,21 @@ export default function LandingPage() {
       <section className="relative overflow-hidden bg-gradient-to-br from-ochre-50 via-white to-sage-50 pt-24 pb-32">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-ochre-100/40 via-transparent to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sage-100 text-sage-700 text-sm font-semibold mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-sage-200 bg-transparent text-black text-sm font-semibold mb-6">
             <span className="w-2 h-2 rounded-full bg-sage-500 animate-pulse" />
             21-day free trial · No credit card required
           </div>
 
           <h1 className="text-5xl md:text-7xl font-black text-black leading-tight mb-6">
-            Transform your{' '}
+            Transform Your{' '}
             <span className="text-velvet-500">
-              well-being
+              Well-Being
             </span>{' '}
-            journey
+            Journey
           </h1>
 
           <p className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-10 leading-relaxed">
-            Biometric wellness tracking, actionable micro-steps and a structured path to wellness.
+            Biometric wellness tracking, actionable micro-steps and a structured path to well-being
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -236,13 +236,19 @@ export default function LandingPage() {
       <section id="features" className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-black mb-4">Everything you need to thrive</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Six powerful modules working together to support every dimension of your wellbeing.</p>
+            <h2 className="text-4xl font-black text-black mb-4">Everything You Need To Thrive</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Six powerful modules working together to support every dimension of your wellbeing</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {FEATURES.map(f => (
               <div key={f.title} className="group p-8 rounded-2xl border border-gray-100 hover:border-ochre-200 hover:shadow-xl hover:shadow-ochre-50 transition-all cursor-default">
-                <div className="w-10 h-10 rounded-xl bg-ochre-100 mb-4" />
+                <div className="w-10 h-10 rounded-xl bg-ochre-100 mb-4 flex items-center justify-center">
+                  <svg viewBox="0 0 20 20" fill="none" className="w-5 h-5">
+                    <polygon points="10,2 13,14 10,12 7,14" fill="#7a4bdf" opacity="0.9"/>
+                    <circle cx="15" cy="5" r="1.2" fill="#5e2d8f" opacity="0.5"/>
+                    <circle cx="5" cy="8" r="0.8" fill="#5e2d8f" opacity="0.4"/>
+                  </svg>
+                </div>
                 <h3 className="text-xl font-bold text-black mb-2">{f.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{f.desc}</p>
               </div>
@@ -255,8 +261,8 @@ export default function LandingPage() {
       <section id="how-it-works" className="py-24 bg-gradient-to-br from-ochre-50 to-sage-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-black mb-4">Up and running in minutes</h2>
-            <p className="text-xl text-gray-600">Three simple steps to your personalised wellness plan.</p>
+            <h2 className="text-4xl font-black text-black mb-4">Up And Running In Minutes</h2>
+            <p className="text-xl text-gray-600">Three simple steps to your personalised wellness plan</p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {STEPS.map(s => (
@@ -273,34 +279,24 @@ export default function LandingPage() {
       {/* CIRCLE OF LIFE */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-4xl font-black text-black mb-4">The Circle of Life</h2>
-              <p className="text-xl text-gray-600 mb-6 leading-relaxed">
-                Track all 8 dimensions of a fulfilling life. Receive tailored notifications every 48 hours with micro-actions to strengthen each area.
-              </p>
-              <ul className="space-y-3">
-                {CIRCLE.map(c => (
-                  <li key={c.label} className="flex items-center gap-3 text-black">
-                    <CircleIcon label={c.label} />
-                    <span className="font-medium">{c.label}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="grid grid-cols-4 gap-3">
-              {CIRCLE.map((c, i) => (
-                <div key={c.label} className={`aspect-square rounded-2xl flex flex-col items-center justify-center text-center p-3 border gap-1 ${
-                  i % 4 === 0 ? 'bg-ochre-50 border-ochre-200' :
-                  i % 4 === 1 ? 'bg-velvet-50 border-velvet-100' :
-                  i % 4 === 2 ? 'bg-sage-50 border-sage-100' :
-                  'bg-gray-50 border-gray-200'
-                }`}>
-                  <CircleIcon label={c.label} />
-                  <span className="text-[11px] font-semibold text-black leading-tight">{c.label}</span>
-                </div>
-              ))}
-            </div>
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-black mb-4">The Circle of Life</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Eight dimensions, One fulfilled life
+            </p>
+          </div>
+          <div className="grid grid-cols-4 gap-4 max-w-2xl mx-auto">
+            {CIRCLE.map((c, i) => (
+              <div key={c.label} className={`aspect-square rounded-2xl flex flex-col items-center justify-center text-center p-3 border gap-1 ${
+                i % 4 === 0 ? 'bg-ochre-50 border-ochre-200' :
+                i % 4 === 1 ? 'bg-velvet-50 border-velvet-100' :
+                i % 4 === 2 ? 'bg-sage-50 border-sage-100' :
+                'bg-gray-50 border-gray-200'
+              }`}>
+                <CircleIcon label={c.label} />
+                <span className="text-[11px] font-semibold text-black leading-tight">{c.label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -309,8 +305,8 @@ export default function LandingPage() {
       <section id="pricing" className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-black mb-4">Simple, honest pricing</h2>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sage-100 text-sage-700 text-sm font-semibold">
+            <h2 className="text-4xl font-black text-black mb-4">One Price, Total Clarity</h2>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-sage-200 bg-transparent text-black text-sm font-semibold">
               <span className="w-2 h-2 rounded-full bg-sage-500 animate-pulse" />
               Start free for 21 days. No credit card required.
             </div>
@@ -318,7 +314,7 @@ export default function LandingPage() {
 
           <div className="flex justify-center mb-8">
             <div className="bg-white border border-gray-200 rounded-xl p-1 flex gap-1">
-              <button onClick={() => setPlan('monthly')} className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all bg-ochre-300 text-black hover:bg-ochre-400 ${plan === 'monthly' ? 'shadow' : 'opacity-60'}`}>Monthly</button>
+              <button onClick={() => setPlan('monthly')} className={`px-6 py-2.5 rounded-lg text-sm font-medium transition-all border-2 border-ochre-300 bg-transparent text-black hover:bg-ochre-50 ${plan === 'monthly' ? 'shadow' : 'opacity-60'}`}>Monthly</button>
               <button onClick={() => setPlan('yearly')} className={`px-6 py-2.5 rounded-lg text-sm font-semibold transition-all relative ${plan === 'yearly' ? 'bg-black text-white shadow' : 'text-gray-500 hover:text-black'}`}>
                 Yearly <span className="ml-2 px-2 py-0.5 rounded-full bg-white text-black text-xs font-bold border border-gray-200">Save 17%</span>
               </button>
@@ -354,7 +350,7 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/signup" className="block w-full text-center py-3 rounded-xl bg-ochre-400 text-black font-bold hover:bg-ochre-300 transition-colors">
+              <Link href="/signup" className="block w-full text-center py-3 rounded-xl bg-ochre-300 text-black font-bold hover:bg-ochre-400 transition-colors">
                 Get Premium
               </Link>
             </div>
@@ -367,7 +363,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black text-black mb-4">About Unicorn</h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Built by a team that believes well-being is not a luxury, it is a foundation.</p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Built by a team that believes well-being is not a luxury, it is a foundation</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-16">
@@ -410,8 +406,8 @@ export default function LandingPage() {
       <section className="py-24 bg-velvet-600 text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-black mb-4">Ready to begin your wellness journey?</h2>
-          <p className="text-ochre-200 text-xl mb-8">Join thousands of people taking their well-being seriously. Start free, no commitment.</p>
-          <Link href="/signup" className="inline-flex items-center gap-2 bg-ochre-400 text-black font-bold px-10 py-4 rounded-2xl shadow-xl hover:bg-ochre-300 transition-colors text-lg">
+          <p className="text-ochre-200 text-xl mb-8">Take your well-being seriously and start free with no commitment.</p>
+          <Link href="/signup" className="inline-flex items-center gap-2 border-2 border-ochre-200 text-ochre-200 font-bold px-10 py-4 rounded-2xl hover:bg-ochre-200/10 transition-colors text-lg">
             Get started — it&apos;s free <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
