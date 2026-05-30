@@ -27,6 +27,7 @@ export default function ProfilePage() {
   const [user, setUser] = useState<{ name: string; email: string } | null>(null)
   const [profile, setProfile] = useState<Record<string, string | string[]>>({})
   const [permissions, setPermissions] = useState<Record<string, boolean>>({})
+  const [smartwatch, setSmartwatch] = useState('Garmin')
 
   useEffect(() => {
     const u = getUser()
@@ -34,6 +35,7 @@ export default function ProfilePage() {
     setUser(u)
     try { setProfile(JSON.parse(localStorage.getItem('unicorn_profile') || '{}')) } catch {}
     try { setPermissions(JSON.parse(localStorage.getItem('unicorn_permissions') || '{}')) } catch {}
+    setSmartwatch(localStorage.getItem('unicorn_smartwatch') ?? 'Garmin')
   }, [router])
 
   function signOut() {
@@ -119,7 +121,7 @@ export default function ProfilePage() {
             <span className="text-2xl">⌚</span>
             <div>
               <p className="text-sm font-semibold text-gray-900">
-                {localStorage.getItem?.('unicorn_smartwatch') ?? 'Garmin'}
+                {smartwatch}
               </p>
               <p className="text-xs text-muted-foreground">Smartwatch — Phase 2: live sync</p>
             </div>
