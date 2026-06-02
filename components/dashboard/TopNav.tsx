@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { LogOut, User } from 'lucide-react'
 import { clearUser, getUser } from '@/lib/mock-auth'
+import { signOut as nextAuthSignOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 const NAV_LINKS = [
@@ -25,7 +26,7 @@ export function TopNav() {
 
   function signOut() {
     clearUser()
-    router.replace('/login')
+    nextAuthSignOut({ callbackUrl: '/login' })
   }
 
   return (
