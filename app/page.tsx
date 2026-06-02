@@ -130,7 +130,7 @@ export default function LandingPage() {
           </button>
           <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-full border-2 border-ochre-300 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md text-black dark:text-white hover:bg-ochre-50 dark:hover:bg-gray-800 transition-colors">Sign in</Link>
           <Link href="/signup" className="text-sm font-semibold bg-velvet-500 text-white px-5 py-2 rounded-full shadow-md hover:bg-velvet-600 transition-all flex items-center gap-1.5">
-            Get started +
+            Get started
           </Link>
         </div>
 
