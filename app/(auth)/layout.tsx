@@ -29,9 +29,6 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           </div>
         </div>
 
-        <p className="text-white/60 text-sm">
-          Join thousands of people taking charge of their well-being.
-        </p>
       </div>
 
       {/* Right form panel */}
