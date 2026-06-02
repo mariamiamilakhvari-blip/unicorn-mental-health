@@ -2,24 +2,26 @@
 import { useState } from 'react'
 import { Check, Loader2, Crown, Sparkles, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
-const FEATURES = [
-  { icon: '🌀', text: 'Full Circle of Life tracking' },
-  { icon: '🎯', text: 'Unlimited hobby milestones' },
-  { icon: '⚡', text: 'Unlimited random challenges' },
-  { icon: '⌚', text: 'Garmin smartwatch sync' },
-  { icon: '🧠', text: 'Personalised micro-actions' },
-  { icon: '🔔', text: 'Priority wellness notifications' },
-  { icon: '📊', text: 'Advanced analytics & insights' },
-  { icon: '🫂', text: 'Community access' },
-]
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 export default function SubscriptionPage() {
+  const { t } = useLanguage()
   const [plan, setPlan] = useState<'monthly' | 'yearly'>('yearly')
   const [loading, setLoading] = useState(false)
 
   const TRIAL_DAYS = 21
   const savings = Math.round(((4.99 * 12 - 59.99) / (4.99 * 12)) * 100)
+
+  const FEATURES = [
+    { icon: '🌀', text: t('subPremiumFeature1') },
+    { icon: '🎯', text: t('subPremiumFeature2') },
+    { icon: '⚡', text: t('subPremiumFeature3') },
+    { icon: '⌚', text: t('subPremiumFeature4') },
+    { icon: '🧠', text: t('subPremiumFeature5') },
+    { icon: '🔔', text: t('subPremiumFeature6') },
+    { icon: '📊', text: t('subPremiumFeature7') },
+    { icon: '🫂', text: t('subPremiumFeature8') },
+  ]
 
   function subscribe() {
     setLoading(true)
@@ -33,8 +35,8 @@ export default function SubscriptionPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-gray-900">Unlock Unicorn Premium</h1>
-        <p className="text-muted-foreground mt-2">Everything you need for your wellness journey</p>
+        <h1 className="text-3xl font-bold text-gray-900">{t('subTitle')}</h1>
+        <p className="text-muted-foreground mt-2">{t('subSubtitle')}</p>
       </div>
 
       {/* Trial banner */}
@@ -43,8 +45,8 @@ export default function SubscriptionPage() {
           <Sparkles className="h-6 w-6" />
         </div>
         <div>
-          <p className="font-semibold">Free Trial Active — {TRIAL_DAYS} days remaining</p>
-          <p className="text-sm opacity-90 mt-0.5">No payment needed yet. Cancel any time before the trial ends.</p>
+          <p className="font-semibold">{t('subTrialActive')} — {TRIAL_DAYS} days remaining</p>
+          <p className="text-sm opacity-90 mt-0.5">{t('subTrialNote')}</p>
         </div>
       </div>
 
@@ -55,13 +57,13 @@ export default function SubscriptionPage() {
             onClick={() => setPlan('monthly')}
             className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${plan === 'monthly' ? 'bg-white shadow-sm text-gray-900' : 'text-muted-foreground'}`}
           >
-            Monthly
+            {t('subMonthly')}
           </button>
           <button
             onClick={() => setPlan('yearly')}
             className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all relative ${plan === 'yearly' ? 'bg-white shadow-sm text-gray-900' : 'text-muted-foreground'}`}
           >
-            Yearly
+            {t('subYearly')}
             <span className="absolute -top-2.5 -right-1 px-1.5 py-0.5 rounded-full bg-sage-500 text-white text-[9px] font-bold">
               -{savings}%
             </span>
@@ -74,15 +76,15 @@ export default function SubscriptionPage() {
         {/* Free card */}
         <div className="bg-white rounded-2xl p-8 shadow-sm border border-border">
           <div className="mb-6">
-            <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Free Trial</span>
+            <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">{t('subFreeTrial')}</span>
             <div className="mt-2">
-              <span className="text-4xl font-black text-gray-900">$0</span>
-              <span className="text-muted-foreground ml-1">/ 21 days</span>
+              <span className="text-4xl font-black text-gray-900">{t('subFreePrice')}</span>
+              <span className="text-muted-foreground ml-1">{t('subFreeDays')}</span>
             </div>
-            <p className="text-sm text-muted-foreground mt-1">No credit card required</p>
+            <p className="text-sm text-muted-foreground mt-1">{t('subFreeNoCard')}</p>
           </div>
           <div className="space-y-3 mb-8">
-            {['Circle of Life (3 categories)', '1 active challenge', '1 hobby milestone track', 'Basic notifications'].map(f => (
+            {[t('subFreeFeature1'), t('subFreeFeature2'), t('subFreeFeature3'), t('subFreeFeature4')].map(f => (
               <div key={f} className="flex items-center gap-2.5">
                 <div className="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
                   <Check className="h-3 w-3 text-gray-500" />
@@ -92,7 +94,7 @@ export default function SubscriptionPage() {
             ))}
           </div>
           <div className="h-11 flex items-center justify-center rounded-xl border border-border text-sm font-semibold text-muted-foreground bg-gray-50">
-            Current plan
+            {t('subCurrentPlan')}
           </div>
         </div>
 
@@ -102,16 +104,16 @@ export default function SubscriptionPage() {
             <Crown className="h-8 w-8 text-white/30" />
           </div>
           <div className="mb-6">
-            <span className="text-sm font-semibold text-ochre-100 uppercase tracking-wide">Premium</span>
+            <span className="text-sm font-semibold text-ochre-100 uppercase tracking-wide">{t('subPremium')}</span>
             <div className="mt-2">
               <span className="text-4xl font-black">
                 {plan === 'yearly' ? '$59.99' : '$4.99'}
               </span>
-              <span className="text-ochre-100 ml-1">/ {plan === 'yearly' ? 'year' : 'month'}</span>
+              <span className="text-ochre-100 ml-1">/ {plan === 'yearly' ? t('subYear') : t('subMonth')}</span>
             </div>
             {plan === 'yearly'
-              ? <p className="text-sage-300 text-sm font-semibold mt-1">That&apos;s just $5/month — save ${(4.99 * 12 - 59.99).toFixed(2)}</p>
-              : <p className="text-ochre-100 text-sm mt-1">Billed monthly · cancel anytime</p>}
+              ? <p className="text-sage-300 text-sm font-semibold mt-1">{t('subYearlyNote')} ${(4.99 * 12 - 59.99).toFixed(2)}</p>
+              : <p className="text-ochre-100 text-sm mt-1">{t('subMonthlyNote')}</p>}
           </div>
 
           <div className="grid grid-cols-2 gap-2.5 mb-8">
@@ -129,13 +131,13 @@ export default function SubscriptionPage() {
             className="w-full h-12 bg-white text-velvet-600 hover:bg-ochre-50 font-bold rounded-xl text-base shadow-lg"
           >
             {loading ? <Loader2 className="h-5 w-5 animate-spin mr-2" /> : <Zap className="h-5 w-5 mr-2" />}
-            Start after trial · {plan === 'yearly' ? '$59.99/yr' : '$4.99/mo'}
+            {t('subStartAfterTrial')} · {plan === 'yearly' ? '$59.99/yr' : '$4.99/mo'}
           </Button>
         </div>
       </div>
 
       <p className="text-center text-xs text-muted-foreground">
-        Secure payment via Stripe · Cancel anytime · No hidden fees
+        {t('subSecure')}
       </p>
     </div>
   )

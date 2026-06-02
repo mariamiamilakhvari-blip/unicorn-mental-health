@@ -1,4 +1,6 @@
+'use client'
 import { Sparkles } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 const MICRO_ACTIONS: Record<string, string[]> = {
   'More energy': ['Drink a tall glass of water right now ☕', 'Do 10 jumping jacks to wake up ⚡', 'Take 5 deep breaths — in through nose, out through mouth 🌬️'],
@@ -18,6 +20,7 @@ interface MicroActionCardProps {
 }
 
 export function MicroActionCard({ targetIntervention }: MicroActionCardProps) {
+  const { t } = useLanguage()
   const pool = (targetIntervention && MICRO_ACTIONS[targetIntervention]) || DEFAULT_ACTIONS
   const action = pool[new Date().getDate() % pool.length]
 
@@ -28,7 +31,7 @@ export function MicroActionCard({ targetIntervention }: MicroActionCardProps) {
           <Sparkles className="h-5 w-5" />
         </div>
         <div>
-          <p className="text-xs font-semibold opacity-80 mb-1 uppercase tracking-wide">Today&apos;s Micro-Action</p>
+          <p className="text-xs font-semibold opacity-80 mb-1 uppercase tracking-wide">{t('homeMicroAction')}</p>
           <p className="font-semibold leading-snug">{action}</p>
         </div>
       </div>

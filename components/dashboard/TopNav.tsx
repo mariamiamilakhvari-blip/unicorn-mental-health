@@ -5,19 +5,22 @@ import { LogOut, User } from 'lucide-react'
 import { clearUser, getUser } from '@/lib/mock-auth'
 import { signOut as nextAuthSignOut } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-
-const NAV_LINKS = [
-  { href: '/home', label: 'Home' },
-  { href: '/hobbies', label: 'Hobbies' },
-  { href: '/challenges', label: 'Challenges' },
-  { href: '/subscription', label: 'Premium' },
-]
+import { useLanguage } from '@/lib/i18n/LanguageContext'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 
 export function TopNav() {
   const pathname = usePathname()
   const router = useRouter()
+  const { t } = useLanguage()
   const [userName, setUserName] = useState('')
   const [menuOpen, setMenuOpen] = useState(false)
+
+  const NAV_LINKS = [
+    { href: '/home', label: t('topNavHome') },
+    { href: '/hobbies', label: t('topNavHobbies') },
+    { href: '/challenges', label: t('topNavChallenges') },
+    { href: '/subscription', label: t('topNavPremium') },
+  ]
 
   useEffect(() => {
     const user = getUser()
@@ -32,7 +35,6 @@ export function TopNav() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
-        {/* Logo */}
         <Link href="/home" className="flex items-center gap-2.5 shrink-0">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-ochre-400 to-velvet-600 flex items-center justify-center">
             <span className="text-base">🦄</span>
@@ -40,7 +42,6 @@ export function TopNav() {
           <span className="font-bold text-gray-900 text-lg">Unicorn</span>
         </Link>
 
-        {/* Center nav */}
         <nav className="hidden md:flex items-center gap-1">
           {NAV_LINKS.map(link => {
             const active = pathname === link.href
@@ -60,8 +61,8 @@ export function TopNav() {
           })}
         </nav>
 
-        {/* Right: user */}
-        <div className="relative flex items-center gap-3">
+        <div className="relative flex items-center gap-2">
+          <LanguageSwitcher />
           <button
             onClick={() => setMenuOpen(o => !o)}
             className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-gray-100 transition-colors"
@@ -69,7 +70,7 @@ export function TopNav() {
             <div className="w-7 h-7 rounded-full bg-gradient-to-br from-ochre-300 to-velvet-500 flex items-center justify-center">
               <User className="h-4 w-4 text-white" />
             </div>
-            <span className="text-sm font-medium text-gray-700 hidden sm:block">{userName || 'Account'}</span>
+            <span className="text-sm font-medium text-gray-700 hidden sm:block">{userName || t('topNavAccount')}</span>
           </button>
 
           {menuOpen && (
@@ -82,7 +83,7 @@ export function TopNav() {
                   className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
                 >
                   <User className="h-4 w-4" />
-                  Profile & Settings
+                  {t('topNavProfile')}
                 </Link>
                 <div className="my-1 border-t border-gray-100" />
                 <button
@@ -90,7 +91,7 @@ export function TopNav() {
                   className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
                 >
                   <LogOut className="h-4 w-4" />
-                  Sign out
+                  {t('topNavSignOut')}
                 </button>
               </div>
             </>
@@ -98,7 +99,6 @@ export function TopNav() {
         </div>
       </div>
 
-      {/* Mobile nav */}
       <div className="md:hidden border-t border-gray-100 px-4 py-1.5 flex gap-1 overflow-x-auto">
         {NAV_LINKS.map(link => {
           const active = pathname === link.href

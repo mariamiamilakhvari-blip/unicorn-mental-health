@@ -2,16 +2,19 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Home, Star, Zap, CreditCard } from 'lucide-react'
-
-const TABS = [
-  { href: '/home', icon: Home, label: 'Home' },
-  { href: '/hobbies', icon: Star, label: 'Hobbies' },
-  { href: '/challenges', icon: Zap, label: 'Challenges' },
-  { href: '/subscription', icon: CreditCard, label: 'Plan' },
-]
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 export function BottomNav() {
   const pathname = usePathname()
+  const { t } = useLanguage()
+
+  const TABS = [
+    { href: '/home', icon: Home, label: t('bottomNavHome') },
+    { href: '/hobbies', icon: Star, label: t('bottomNavHobbies') },
+    { href: '/challenges', icon: Zap, label: t('bottomNavChallenges') },
+    { href: '/subscription', icon: CreditCard, label: t('bottomNavPlan') },
+  ]
+
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-lg border-t border-border safe-area-pb">
       <div className="max-w-lg mx-auto flex">

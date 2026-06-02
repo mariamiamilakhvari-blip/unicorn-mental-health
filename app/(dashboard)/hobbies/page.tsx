@@ -4,6 +4,7 @@ import { Search, ArrowLeft, Trophy } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { MilestoneTracker } from '@/components/dashboard/MilestoneTracker'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 const HOBBIES = [
   { name: 'Painting', icon: '🎨', category: 'Creative' },
@@ -54,6 +55,7 @@ type Hobby = { name: string; icon: string; learningMethod: string; startDate: st
 type Step = 'pick' | 'learn' | 'tracker'
 
 export default function HobbiesPage() {
+  const { t } = useLanguage()
   const [step, setStep] = useState<Step>('pick')
   const [hobby, setHobby] = useState<Hobby | null>(null)
   const [search, setSearch] = useState('')
@@ -97,14 +99,14 @@ export default function HobbiesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">The Milestone Program</h1>
-          <p className="text-muted-foreground mt-1">Choose a hobby to master over the next 3 months</p>
+          <h1 className="text-3xl font-bold text-gray-900">{t('hobbiesTitle')}</h1>
+          <p className="text-muted-foreground mt-1">{t('hobbiesPickSubtitle')}</p>
         </div>
       </div>
 
       <div className="relative max-w-sm">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input placeholder="Search hobbies…" value={search} onChange={e => setSearch(e.target.value)} className="pl-9" />
+        <Input placeholder={t('hobbiesSearch')} value={search} onChange={e => setSearch(e.target.value)} className="pl-9" />
       </div>
 
       <div className="space-y-6">
@@ -137,7 +139,7 @@ export default function HobbiesPage() {
   if (step === 'learn' && selected) return (
     <div className="space-y-6">
       <button onClick={() => setStep('pick')} className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
-        <ArrowLeft className="h-4 w-4" /> Back to hobbies
+        <ArrowLeft className="h-4 w-4" /> {t('hobbiesBackToHobbies')}
       </button>
 
       <div className="flex items-center gap-4">
@@ -146,7 +148,7 @@ export default function HobbiesPage() {
         </div>
         <div>
           <h2 className="text-2xl font-bold text-gray-900">{selected.name}</h2>
-          <p className="text-muted-foreground">How will you learn it?</p>
+          <p className="text-muted-foreground">{t('hobbiesHowLearnIt')}</p>
         </div>
       </div>
 
@@ -168,7 +170,7 @@ export default function HobbiesPage() {
         disabled={!method}
         className="h-12 px-8 bg-ochre-400 text-black hover:bg-velvet-500 hover:text-white font-semibold rounded-xl "
       >
-        Start My Milestone Journey 🚀
+        {t('hobbiesStartJourney')}
       </Button>
     </div>
   )
@@ -178,11 +180,11 @@ export default function HobbiesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">My Hobby Journey</h1>
-          <p className="text-muted-foreground mt-1">Track your 3-month milestone program</p>
+          <h1 className="text-3xl font-bold text-gray-900">{t('hobbiesJourneyTitle')}</h1>
+          <p className="text-muted-foreground mt-1">{t('hobbiesJourneySubtitle')}</p>
         </div>
         <button onClick={resetHobby} className="text-sm font-semibold text-velvet-500 hover:underline">
-          Change hobby
+          {t('hobbiesChangeHobby')}
         </button>
       </div>
 
@@ -194,7 +196,7 @@ export default function HobbiesPage() {
             <h2 className="text-xl font-bold text-gray-900">{hobby.name}</h2>
             <p className="text-sm text-muted-foreground mt-1">{hobby.learningMethod}</p>
             <div className="mt-4 pt-4 border-t border-border">
-              <p className="text-xs text-muted-foreground">Started</p>
+              <p className="text-xs text-muted-foreground">{t('hobbiesStarted')}</p>
               <p className="text-sm font-semibold text-gray-700">
                 {new Date(hobby.startDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
               </p>
@@ -204,7 +206,7 @@ export default function HobbiesPage() {
           {/* Completion stats */}
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-border">
             <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-              <Trophy className="h-4 w-4 text-ochre-400" /> Progress
+              <Trophy className="h-4 w-4 text-ochre-400" /> {t('hobbiesProgressLabel')}
             </h3>
             <div className="space-y-2">
               {[1, 2, 3].map(month => {
@@ -213,7 +215,7 @@ export default function HobbiesPage() {
                 return (
                   <div key={month}>
                     <div className="flex justify-between text-xs text-muted-foreground mb-1">
-                      <span>Month {month}</span>
+                      <span>{t('hobbiesMonth')} {month}</span>
                       <span>{done}/{total}</span>
                     </div>
                     <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
@@ -229,8 +231,8 @@ export default function HobbiesPage() {
           </div>
 
           <div className="bg-gradient-to-r from-sage-400 to-sage-600 rounded-2xl p-4 text-white">
-            <p className="font-semibold text-sm">💪 Keep going!</p>
-            <p className="text-xs opacity-90 mt-0.5">Check in every 7 days to receive your encouragement notification.</p>
+            <p className="font-semibold text-sm">{t('hobbiesKeepGoing')}</p>
+            <p className="text-xs opacity-90 mt-0.5">{t('hobbiesCheckInReminder')}</p>
           </div>
         </div>
 

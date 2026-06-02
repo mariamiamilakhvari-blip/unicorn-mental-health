@@ -7,13 +7,7 @@ import { CircleOfLife } from '@/components/dashboard/CircleOfLife'
 import { CalendarWidget } from '@/components/dashboard/CalendarWidget'
 import { MicroActionCard } from '@/components/dashboard/MicroActionCard'
 import { getUser } from '@/lib/mock-auth'
-
-function getGreeting() {
-  const h = new Date().getHours()
-  if (h < 12) return 'Good morning'
-  if (h < 17) return 'Good afternoon'
-  return 'Good evening'
-}
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 const SAMPLE_NOTIFICATIONS = [
   { id: '1', type: 'circle-of-life', title: 'Joy check-in', body: 'Did something bring you joy today? Take 5 minutes to reflect.' },
@@ -44,10 +38,18 @@ function getActivityDates(): string[] {
 
 export default function HomePage() {
   const router = useRouter()
+  const { t } = useLanguage()
   const [userName, setUserName] = useState('')
   const [targetIntervention, setTargetIntervention] = useState<string | undefined>()
   const [circleScores, setCircleScores] = useState<Record<string, number>>({})
   const [activityDates, setActivityDates] = useState<string[]>([])
+
+  function getGreeting() {
+    const h = new Date().getHours()
+    if (h < 12) return t('homeGreetingMorning')
+    if (h < 17) return t('homeGreetingAfternoon')
+    return t('homeGreetingEvening')
+  }
 
   useEffect(() => {
     const user = getUser()
@@ -74,7 +76,7 @@ export default function HomePage() {
         <div>
           <p className="text-sm text-muted-foreground">{getGreeting()},</p>
           <h1 className="text-3xl font-bold text-gray-900">{userName || '…'} 🦄</h1>
-          <p className="text-muted-foreground mt-0.5">Your wellness dashboard is ready.</p>
+          <p className="text-muted-foreground mt-0.5">{t('homeDashboardReady')}</p>
         </div>
         <button className="relative p-2.5 rounded-xl bg-white border border-border hover:bg-gray-50 transition-colors shadow-sm">
           <Bell className="h-5 w-5 text-gray-600" />
@@ -96,7 +98,7 @@ export default function HomePage() {
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-border">
             <div className="flex items-center gap-2 mb-5">
               <Activity className="h-5 w-5 text-ochre-400" />
-              <h2 className="text-lg font-semibold text-gray-900">Circle of Life</h2>
+              <h2 className="text-lg font-semibold text-gray-900">{t('homeCircleOfLife')}</h2>
             </div>
             <CircleOfLife scores={circleScores} onScoreChange={handleScoreChange} />
           </div>
@@ -110,7 +112,7 @@ export default function HomePage() {
           <div className="bg-white rounded-2xl p-5 shadow-sm border border-border">
             <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
               <Zap className="h-4 w-4 text-ochre-400" />
-              Recent Nudges
+              {t('homeRecentNudges')}
             </h3>
             <div className="space-y-3">
               {SAMPLE_NOTIFICATIONS.map(n => (
@@ -130,13 +132,13 @@ export default function HomePage() {
           {/* Quick links */}
           <div className="bg-gradient-to-br from-ochre-400 to-velvet-600 rounded-2xl p-5 text-white">
             <h3 className="font-semibold mb-3 flex items-center gap-2">
-              <Star className="h-4 w-4" /> Quick Actions
+              <Star className="h-4 w-4" /> {t('homeQuickActions')}
             </h3>
             <div className="space-y-2">
               {[
-                { href: '/challenges', label: '⚡ Start a challenge' },
-                { href: '/hobbies', label: '🎯 Pick a hobby' },
-                { href: '/subscription', label: '👑 Upgrade to Premium' },
+                { href: '/challenges', label: t('homeStartChallenge') },
+                { href: '/hobbies', label: t('homePickHobby') },
+                { href: '/subscription', label: t('homeUpgradePremium') },
               ].map(a => (
                 <a
                   key={a.href}

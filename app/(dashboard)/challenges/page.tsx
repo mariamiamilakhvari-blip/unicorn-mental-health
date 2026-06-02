@@ -4,6 +4,7 @@ import { Zap, CheckCircle2, Calendar, Trophy } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { HeatmapCalendar } from '@/components/dashboard/HeatmapCalendar'
 import { ProgressRing } from '@/components/dashboard/ProgressRing'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 const POOL = {
   social: [
@@ -47,6 +48,7 @@ function load(): Challenge[] {
 function save(c: Challenge[]) { localStorage.setItem('unicorn_challenges', JSON.stringify(c)) }
 
 export default function ChallengesPage() {
+  const { t } = useLanguage()
   const [challenges, setChallenges] = useState<Challenge[]>([])
 
   useEffect(() => { setChallenges(load()) }, [])
@@ -89,24 +91,24 @@ export default function ChallengesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Random Challenges</h1>
-          <p className="text-muted-foreground mt-1">21-day challenges across Social · Business · Relationships</p>
+          <h1 className="text-3xl font-bold text-gray-900">{t('challengesTitle')}</h1>
+          <p className="text-muted-foreground mt-1">{t('challengesSubtitle')}</p>
         </div>
         <Button
           onClick={newChallenge}
           className="bg-ochre-400 text-black hover:bg-velvet-500 hover:text-white rounded-xl h-10 px-5 font-semibold "
         >
-          <Zap className="h-4 w-4 mr-2" /> New Challenge
+          <Zap className="h-4 w-4 mr-2" /> {t('challengesNew')}
         </Button>
       </div>
 
       {!active ? (
         <div className="bg-white rounded-2xl p-16 shadow-sm border border-border text-center max-w-lg mx-auto">
           <div className="text-6xl mb-4">⚡</div>
-          <h3 className="text-xl font-bold text-gray-900 mb-2">No active challenge yet</h3>
-          <p className="text-muted-foreground mb-6">Get a random 21-day challenge across social, business, or relationships.</p>
+          <h3 className="text-xl font-bold text-gray-900 mb-2">{t('challengesNoActive')}</h3>
+          <p className="text-muted-foreground mb-6">{t('challengesNoActiveDesc')}</p>
           <Button onClick={newChallenge} className="bg-ochre-400 text-black hover:bg-velvet-500 hover:text-white rounded-xl px-6">
-            Get My First Challenge
+            {t('challengesGetFirst')}
           </Button>
         </div>
       ) : (
@@ -121,9 +123,9 @@ export default function ChallengesPage() {
               <h2 className="text-2xl font-bold mb-2">{active.title}</h2>
               <p className="opacity-90 leading-relaxed mb-6">{active.description}</p>
               <div className="flex items-center gap-6 text-sm opacity-80 mb-6">
-                <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4" /> Day {daysElapsed + 1} of 21</span>
-                <span>{daysLeft} days remaining</span>
-                <span>{active.checkIns.length} check-ins</span>
+                <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4" /> {t('challengesDayLabel')} {daysElapsed + 1} {t('challengesOfLabel')} 21</span>
+                <span>{daysLeft} {t('challengesDays')} {t('challengesRemainingLabel')}</span>
+                <span>{active.checkIns.length} {t('challengesCheckInsLabel')}</span>
               </div>
               <button
                 onClick={() => checkIn(active.id)}
@@ -131,17 +133,17 @@ export default function ChallengesPage() {
                 className={`w-full py-3.5 rounded-xl font-semibold transition-all ${isToday(active) ? 'bg-white/30 cursor-default' : 'bg-white/20 hover:bg-white/30 active:scale-95'}`}
               >
                 {isToday(active)
-                  ? <span className="flex items-center justify-center gap-2"><CheckCircle2 className="h-5 w-5" /> Checked in today!</span>
-                  : '✓ Check In Today'}
+                  ? <span className="flex items-center justify-center gap-2"><CheckCircle2 className="h-5 w-5" /> {t('challengesCheckedToday')}</span>
+                  : t('challengesCheckInToday')}
               </button>
             </div>
 
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-4">
               {[
-                { label: 'Days elapsed', value: daysElapsed + 1, icon: '📅' },
-                { label: 'Check-ins', value: active.checkIns.length, icon: '✅' },
-                { label: 'Days left', value: daysLeft, icon: '⏳' },
+                { label: t('challengesDaysElapsed'), value: daysElapsed + 1, icon: '📅' },
+                { label: t('challengesCheckInsCount'), value: active.checkIns.length, icon: '✅' },
+                { label: t('challengesDaysLeftLabel'), value: daysLeft, icon: '⏳' },
               ].map(s => (
                 <div key={s.label} className="bg-white rounded-xl p-4 shadow-sm border border-border text-center">
                   <div className="text-2xl mb-1">{s.icon}</div>
@@ -156,10 +158,10 @@ export default function ChallengesPage() {
           <div className="xl:col-span-2 space-y-6">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-border">
               <h3 className="font-semibold text-gray-900 mb-5 flex items-center gap-2">
-                <Trophy className="h-4 w-4 text-ochre-400" /> Your Progress
+                <Trophy className="h-4 w-4 text-ochre-400" /> {t('challengesYourProgress')}
               </h3>
               <div className="flex justify-center mb-6">
-                <ProgressRing progress={progress} size={120} label="Complete" />
+                <ProgressRing progress={progress} size={120} label={t('challengesProgress')} />
               </div>
               <HeatmapCalendar
                 startDate={new Date(active.startDate)}
@@ -171,7 +173,7 @@ export default function ChallengesPage() {
             {/* Category badge */}
             <div className={`rounded-2xl p-4 ${BG[active.category]}`}>
               <p className="font-semibold text-sm">{EMOJI[active.category]} {active.category.charAt(0).toUpperCase() + active.category.slice(1)} Challenge</p>
-              <p className="text-xs opacity-80 mt-1">Check in daily to build the habit. Consistency beats perfection.</p>
+              <p className="text-xs opacity-80 mt-1">{t('challengesConsistency')}</p>
             </div>
           </div>
         </div>

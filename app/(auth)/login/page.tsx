@@ -8,9 +8,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent } from '@/components/ui/card'
+import { useLanguage } from '@/lib/i18n/LanguageContext'
 
 export default function LoginPage() {
   const router = useRouter()
+  const { t } = useLanguage()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -25,7 +27,7 @@ export default function LoginPage() {
     if (result?.ok) {
       router.push('/home')
     } else {
-      setError('Invalid email or password.')
+      setError(t('loginError'))
       setLoading(false)
     }
   }
@@ -38,19 +40,19 @@ export default function LoginPage() {
     <Card className="shadow-xl shadow-ochre-100/50 border-0">
       <CardContent className="pt-6 px-6 pb-8">
         <div className="mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Welcome back</h2>
-          <p className="text-sm text-muted-foreground mt-1">Sign in to continue your journey</p>
+          <h2 className="text-2xl font-bold text-gray-900">{t('loginWelcome')}</h2>
+          <p className="text-sm text-muted-foreground mt-1">{t('loginSubtitle')}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <Label htmlFor="email">Email address</Label>
+            <Label htmlFor="email">{t('loginEmail')}</Label>
             <Input id="email" type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
-              <Link href="/forgot-password" className="text-xs text-velvet-500 hover:underline font-medium">Forgot password?</Link>
+              <Label htmlFor="password">{t('loginPassword')}</Label>
+              <Link href="/forgot-password" className="text-xs text-velvet-500 hover:underline font-medium">{t('loginForgot')}</Link>
             </div>
             <div className="relative">
               <Input
@@ -72,14 +74,14 @@ export default function LoginPage() {
 
           <Button type="submit" disabled={loading} className="w-full bg-velvet-500 text-white hover:bg-velvet-600 font-semibold h-11">
             {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-            Sign In
+            {t('loginBtn')}
           </Button>
         </form>
 
         <div className="relative my-5">
           <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">or continue with</span>
+            <span className="bg-background px-2 text-muted-foreground">{t('loginOrWith')}</span>
           </div>
         </div>
 
@@ -91,19 +93,19 @@ export default function LoginPage() {
               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
-            Continue with Google
+            {t('loginGoogle')}
           </button>
           <button onClick={() => handleOAuth('apple')} className="flex w-full items-center justify-center gap-3 rounded-xl bg-black h-11 px-4 text-sm font-medium text-white hover:bg-gray-900 transition-colors">
             <svg className="h-5 w-5 fill-white" viewBox="0 0 24 24">
               <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.3.07 2.19.74 2.95.76 1.13-.2 2.21-.89 3.42-.83 1.44.07 2.53.61 3.26 1.57-3 1.83-2.5 5.83.52 7.02-.61 1.5-1.4 2.96-2.15 4.36zm-4.02-17.3c.05 2.06-1.6 3.73-3.44 3.62-.2-1.96 1.49-3.71 3.44-3.62z"/>
             </svg>
-            Continue with Apple
+            {t('loginApple')}
           </button>
         </div>
 
         <p className="text-center text-sm text-muted-foreground mt-6">
-          Don&apos;t have an account?{' '}
-          <Link href="/signup" className="font-semibold text-velvet-500 hover:underline">Sign up</Link>
+          {t('loginNoAccount')}{' '}
+          <Link href="/signup" className="font-semibold text-velvet-500 hover:underline">{t('loginSignUp')}</Link>
         </p>
       </CardContent>
     </Card>
