@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { User, LogOut, RefreshCw, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { getUser, clearUser } from '@/lib/mock-auth'
+import { signOut as nextAuthSignOut } from 'next-auth/react'
 
 const QUESTION_LABELS: Record<string, string> = {
   genderIdentity: 'Gender Identity',
@@ -40,7 +41,7 @@ export default function ProfilePage() {
 
   function signOut() {
     clearUser()
-    router.replace('/login')
+    nextAuthSignOut({ callbackUrl: '/login' })
   }
 
   function reDoOnboarding() {
