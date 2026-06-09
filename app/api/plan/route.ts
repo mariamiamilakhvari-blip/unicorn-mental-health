@@ -3,7 +3,7 @@ import { auth } from '@/auth'
 import { connectDB } from '@/lib/db'
 import User from '@/lib/models/User'
 import Notification from '@/lib/models/Notification'
-import { getRitual, getInvitation } from '@/lib/plan'
+import { generateRitual, generateInvitation } from '@/lib/ai'
 
 const MS_48H = 48 * 60 * 60 * 1000
 const MS_24H = 24 * 60 * 60 * 1000
@@ -30,7 +30,7 @@ export async function GET() {
     if (ritualDue) {
       const nextIndex = (plan.ritualIndex ?? 0) + 1
       const profile = user.profile as Record<string, string | string[]>
-      const ritual = getRitual(profile, nextIndex)
+      const ritual = await generateRitual(profile)
       const nextScheduled = new Date(lastRitual.getTime() + MS_48H)
 
       await Notification.create({
@@ -58,7 +58,8 @@ export async function GET() {
 
     if (invitationDue) {
       const nextInvIndex = (plan.invitationIndex ?? 0) + 1
-      const invitation = getInvitation(nextInvIndex)
+      const profile = user.profile as Record<string, string | string[]>
+      const invitation = await generateInvitation(profile)
 
       await Notification.create({
         userId: user._id,

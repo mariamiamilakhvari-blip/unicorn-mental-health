@@ -3,7 +3,8 @@ import { auth } from '@/auth'
 import { connectDB } from '@/lib/db'
 import User from '@/lib/models/User'
 import Notification from '@/lib/models/Notification'
-import { suggestHobby, getRitual, getInvitation } from '@/lib/plan'
+import { suggestHobby } from '@/lib/plan'
+import { generateRitual, generateInvitation, generateHobbyPlan } from '@/lib/ai'
 
 export async function POST(req: Request) {
   const session = await auth()
@@ -13,8 +14,16 @@ export async function POST(req: Request) {
     await connectDB()
 
     const hobby = suggestHobby(profile)
-    const firstRitual = getRitual(profile, 0)
     const now = new Date()
+
+    // Generate AI-personalized content in parallel
+    const [firstRitual, firstInvitation, aiLearningMethod] = await Promise.all([
+      generateRitual(profile),
+      generateInvitation(profile),
+      generateHobbyPlan(profile, hobby.name, hobby.duration),
+    ])
+
+    const personalizedHobby = { ...hobby, learningMethod: aiLearningMethod, startedAt: now }
 
     await User.findByIdAndUpdate(session.user.id, {
       profile,
@@ -22,7 +31,7 @@ export async function POST(req: Request) {
       smartwatchProvider,
       onboardingCompleted: true,
       wellbeingPlan: {
-        hobby: { ...hobby, startedAt: now },
+        hobby: personalizedHobby,
         ritualIndex: 0,
         lastRitualAt: now,
         lastReminderAt: now,
@@ -31,24 +40,22 @@ export async function POST(req: Request) {
       },
     })
 
-    // Create first ritual notification
-    await Notification.create({
-      userId: session.user.id,
-      type: 'ritual',
-      title: firstRitual.title,
-      body: firstRitual.body,
-      scheduledFor: now,
-    })
-
-    // Create first relationship invitation
-    const firstInvitation = getInvitation(0)
-    await Notification.create({
-      userId: session.user.id,
-      type: 'invitation',
-      title: firstInvitation.title,
-      body: firstInvitation.body,
-      scheduledFor: now,
-    })
+    await Promise.all([
+      Notification.create({
+        userId: session.user.id,
+        type: 'ritual',
+        title: firstRitual.title,
+        body: firstRitual.body,
+        scheduledFor: now,
+      }),
+      Notification.create({
+        userId: session.user.id,
+        type: 'invitation',
+        title: firstInvitation.title,
+        body: firstInvitation.body,
+        scheduledFor: now,
+      }),
+    ])
 
     return NextResponse.json({ message: 'Onboarding complete' })
   } catch {
