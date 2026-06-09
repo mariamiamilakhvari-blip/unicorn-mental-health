@@ -43,11 +43,11 @@ const QUESTIONS: Question[] = [
     { label: 'Unemployed & Job seeking' },
     { label: 'Other' },
   ]},
-  { id: 'energyEndOfDay', question: 'What does your energy feel like by end of day?', type: 'single', options: [
-    { label: "I'm usually drained and need to decompress" },
-    { label: "I'm restless and need to wind down actively" },
-    { label: "I fluctuate: some days high, some days flat" },
-    { label: "I'm fine but running on autopilot" },
+  { id: 'carThoughts', question: "When you're in the car alone, what do you think about most?", type: 'single', options: [
+    { label: "Work: I can't seem to leave it behind" },
+    { label: 'People: someone I should call, something I should say' },
+    { label: "Myself: who I'm becoming, what I actually want" },
+    { label: "Nothing: I'm not sure if that's peace or emptiness" },
   ]},
   { id: 'neglectedArea', question: 'Which area of your life feels most neglected right now?', type: 'single', options: [
     { label: 'My relationships and social life' },
