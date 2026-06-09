@@ -179,7 +179,7 @@ export default function QuestionsPage() {
           </button>
 
           {dropdownOpen && (
-            <div className="absolute z-20 top-full left-0 right-0 mt-1.5 bg-white border border-sky-200 rounded-xl shadow-lg shadow-sky-100/50 overflow-hidden max-h-64 overflow-y-auto">
+            <div className="absolute z-20 top-full left-0 right-0 mt-1.5 bg-white border border-sky-300 rounded-xl shadow-xl shadow-sky-200/60 overflow-hidden max-h-72 overflow-y-auto">
               {q.options?.map(opt => {
                 const isChosen = currentValue === opt.label
                 return (
@@ -190,14 +190,14 @@ export default function QuestionsPage() {
                       setAnswers(a => ({ ...a, [q.id]: opt.label }))
                       setDropdownOpen(false)
                     }}
-                    className={`w-full text-left px-4 py-3 text-sm flex items-center justify-between transition-colors ${
+                    className={`w-full text-left px-4 py-3.5 text-sm flex items-center justify-between transition-colors border-b border-sky-50 last:border-0 ${
                       isChosen
-                        ? 'bg-sky-50 text-sky-700 font-semibold'
-                        : 'text-gray-800 hover:bg-sky-50 hover:text-sky-700'
+                        ? 'bg-sky-100 text-sky-800 font-semibold'
+                        : 'text-gray-800 hover:bg-sky-100 hover:text-sky-800'
                     }`}
                   >
                     {opt.label}
-                    {isChosen && <Check className="h-4 w-4 text-sky-500 shrink-0" />}
+                    {isChosen && <Check className="h-4 w-4 text-sky-600 shrink-0" />}
                   </button>
                 )
               })}

@@ -14,7 +14,7 @@ export default function OnboardingLayout({ children }: { children: React.ReactNo
 
       {/* Centered wide card */}
       <div className="flex-1 flex items-start justify-center px-6 py-12">
-        <div className="w-full max-w-2xl bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+        <div className="w-full max-w-2xl bg-white rounded-3xl shadow-xl border border-gray-100">
           <div className="p-8 sm:p-10">
             {children}
           </div>
