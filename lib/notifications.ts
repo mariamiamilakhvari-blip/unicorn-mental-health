@@ -722,3 +722,192 @@ export function getActiveNotifications(
     { id: reminderAction.id, kind: 'reminder', title: reminderAction.title, body: reminderAction.body, dimension: reminderAction.dimensions[0] },
   ]
 }
+
+// ─── Random Challenges ────────────────────────────────────────────────────────
+
+export type ChallengeDimension = 'social' | 'business' | 'relationships'
+
+export interface ChallengeAction {
+  id: string
+  title: string
+  body: string
+  dimension: ChallengeDimension
+}
+
+export interface ActiveChallenge {
+  id: string
+  kind: 'challenge' | 'reminder'
+  title: string
+  body: string
+  dimension: ChallengeDimension
+}
+
+interface ChallengeState {
+  challengeId: string
+  challengeShownAt: string
+  reminderId: string
+  reminderShownAt: string
+  seenIds: string[]
+  userSeed: number
+}
+
+const DAYS_21 = 21 * 24 * 60 * 60 * 1000
+const DAYS_14 = 14 * 24 * 60 * 60 * 1000
+
+export const CHALLENGES: ChallengeAction[] = [
+  // ── Social ──────────────────────────────────────────────────────────────────
+  { id: 'c01', dimension: 'social', title: 'Design a small adventure this weekend', body: "It doesn't need a plan or a destination. Just an intention to do something that isn't on your usual list." },
+  { id: 'c05', dimension: 'social', title: 'Write something about a happy memory', body: 'A poem, a paragraph, even a sentence. Putting a good memory into words changes the way you hold it.' },
+  { id: 'c06', dimension: 'social', title: 'Give an hour of yourself to something that matters', body: 'Find a cause, a community, a person — and show up. The return on that investment tends to be quiet and lasting.' },
+  { id: 'c07', dimension: 'social', title: 'List places in your city you have never been', body: 'Write down five. You already live somewhere more interesting than you have fully explored.' },
+  { id: 'c08', dimension: 'social', title: 'Build a playlist — then learn how to mix it', body: 'Start with the songs that mean something. Free software handles the rest — and it is more satisfying than it sounds.' },
+  { id: 'c10', dimension: 'social', title: 'Do something you have not planned today', body: 'A new café, an unplanned walk, a street you have never taken. Spontaneity is a skill — and it starts with one small decision.' },
+  { id: 'c13', dimension: 'social', title: 'Start a conversation with someone you have never spoken to', body: "It doesn't need to be long or remarkable. A genuine exchange with a new person is one of the simplest pleasures available to you." },
+  { id: 'c15', dimension: 'social', title: 'Try a 15-minute workout you have never done before', body: 'A new app, a different style, a video you have been ignoring. Fifteen minutes is all it asks.' },
+  { id: 'c16', dimension: 'social', title: "Learn to say hello in five languages", body: 'It takes ten minutes and broadens something in you permanently. Pick languages that intrigue you, not just the obvious ones.' },
+  { id: 'c17', dimension: 'social', title: 'Draw a self-portrait today', body: 'Regardless of skill. The act of looking carefully at yourself — and attempting to capture what you see — is quietly revealing.' },
+  { id: 'c19', dimension: 'social', title: 'Learn five phrases in sign language', body: 'Communication is broader than you habitually use. Fifteen minutes with a good tutorial will stay with you.' },
+  { id: 'c23', dimension: 'social', title: 'Organise something small and lead it', body: 'A game night, a dinner, a discussion. Plan it, invite people, and run it well. Social architecture is a skill worth practising.' },
+  { id: 'c25', dimension: 'social', title: 'Introduce yourself to a neighbor you have never met', body: 'A name and a brief exchange is enough. Proximity and genuine connection are rarer together than they should be.' },
+  { id: 'c26', dimension: 'social', title: 'Learn something about where you live — then go there', body: 'Find one cultural or historical site in your city you have walked past without visiting. Today is the right day.' },
+  { id: 'c34', dimension: 'social', title: 'Take the stairs this week', body: 'Every day, every time. A small commitment that compounds — physically and psychologically.' },
+  { id: 'c37', dimension: 'social', title: 'Walk somewhere green today', body: 'A park, a trail, an open path. Twenty minutes outside changes the quality of the rest of your day in ways that are difficult to dispute.' },
+  { id: 'c41', dimension: 'social', title: 'Write a short story in under 500 words', body: 'Any subject, any style. The constraint will teach you more about economy of expression than any workshop.' },
+  { id: 'c46', dimension: 'social', title: 'Share something good with someone today', body: 'A moment, a result, a realisation. Good news shared is not diminished by the sharing — it tends to grow.' },
+  // ── Business ────────────────────────────────────────────────────────────────
+  { id: 'c02', dimension: 'business', title: 'Five minutes with a jump rope', body: 'Rhythm, coordination, a little breath — all in something that costs nothing. Your cardiovascular health will notice.' },
+  { id: 'c04', dimension: 'business', title: 'Read something you love — without interruption', body: 'A book, an essay, a chapter. See how long you can stay with it before your attention drifts. Then stay a little longer.' },
+  { id: 'c09', dimension: 'business', title: 'Spend half an hour with a piece of history', body: 'Pick a figure or an event you have always been curious about. A little context tends to make the present more interesting.' },
+  { id: 'c11', dimension: 'business', title: 'Speak for one minute on a topic you love', body: 'No notes, no filler words. Pick something you care about and say it clearly. You will be surprised how much you know.' },
+  { id: 'c18', dimension: 'business', title: 'Take a different route today', body: 'A small change in path activates something in the brain that routine suppresses. Try it on the way somewhere familiar.' },
+  { id: 'c22', dimension: 'business', title: 'Give a two-minute speech to your reflection', body: 'Choose a topic you want to be more persuasive about. The mirror gives you feedback no audience will.' },
+  { id: 'c27', dimension: 'business', title: 'Attempt a Rubik\'s cube', body: "Even if you don't finish, the attempt does something useful for patience and spatial reasoning. Progress is not the point — the process is." },
+  { id: 'c29', dimension: 'business', title: 'Sit with a past mistake — and write what it taught you', body: 'Not to revisit discomfort, but to extract the real value from it. Most mistakes earn their place eventually.' },
+  { id: 'c30', dimension: 'business', title: 'Read something out loud today', body: 'An article, a passage, a paragraph. Hearing your own voice speak carefully is one of the most underrated exercises in clarity.' },
+  { id: 'c31', dimension: 'business', title: 'Write one sentence about the kind of leader you want to be', body: 'Just one sentence. The constraint forces a clarity that three paragraphs cannot produce.' },
+  { id: 'c38', dimension: 'business', title: 'Spend thirty minutes with your finances', body: 'Not to stress — to understand. Clarity about money is one of the most genuinely liberating things available to anyone.' },
+  { id: 'c39', dimension: 'business', title: 'Improve your posture today — consciously', body: 'Find out what good posture actually looks like, then hold it as often as you remember. The confidence shift is physical, not imagined.' },
+  { id: 'c42', dimension: 'business', title: 'Take an online assessment of one of your skills', body: 'Curiosity about your own competencies is not vanity — it is useful data. Find something relevant and see where you actually stand.' },
+  { id: 'c43', dimension: 'business', title: 'Watch a documentary on something you know nothing about', body: 'Pick a subject that holds no obvious relevance to your life. The most interesting things tend to come from exactly there.' },
+  { id: 'c48', dimension: 'business', title: 'Identify one habit you want to change — and replace it today', body: "Just for today. Not forever. Habits rarely survive a full day of genuine intention, and that single day tends to change the pattern." },
+  // ── Relationships ────────────────────────────────────────────────────────────
+  { id: 'c03', dimension: 'relationships', title: 'A quiet act of generosity', body: 'Choose one person in your life and do something unexpected for them today. The smaller it is, the more it tends to land.' },
+  { id: 'c12', dimension: 'relationships', title: 'Lead a group activity with the people around you', body: 'Assign roles, include everyone, and run it. Leadership is practised, not granted.' },
+  { id: 'c14', dimension: 'relationships', title: 'Write down ten things you appreciate about yourself', body: 'Not achievements — qualities. Take your time. You will likely find it harder than expected, and more valuable.' },
+  { id: 'c20', dimension: 'relationships', title: 'Five minutes of complete silence', body: 'No phone, no music, no input. Just your breath and whatever surfaces when the noise stops.' },
+  { id: 'c21', dimension: 'relationships', title: 'Write down your five happiest memories', body: 'Not the proudest or most impressive — the happiest. Notice what you remember when you look for joy specifically.' },
+  { id: 'c24', dimension: 'relationships', title: 'No sugar in your drinks today', body: 'Water, black coffee, tea. One day without the sweetness tells you a great deal about how much you rely on it.' },
+  { id: 'c28', dimension: 'relationships', title: 'Eat one meal without a screen today', body: 'No phone, no television. Just the food, and perhaps good company or your own thoughts. It tends to taste better.' },
+  { id: 'c32', dimension: 'relationships', title: 'Practice holding eye contact in your next conversation', body: 'Two minutes of deliberate presence with someone. It builds trust more reliably than almost anything you can say.' },
+  { id: 'c33', dimension: 'relationships', title: 'Write down your biggest fear — and how you would move through it', body: 'Not to solve it today, but to look at it clearly. Fears that are named tend to shrink.' },
+  { id: 'c35', dimension: 'relationships', title: 'Offer your help to someone today — genuinely', body: 'Not a large gesture. Look for one small thing you could make easier for someone, and do it without being asked.' },
+  { id: 'c36', dimension: 'relationships', title: 'Write your life in six words', body: "Hemingway reportedly wrote a six-word story that moved people. Yours doesn't need to move anyone — just to be honest." },
+  { id: 'c40', dimension: 'relationships', title: 'Bake something you have never made before', body: 'Following a recipe for the first time asks for patience and attention. Both are good things to practise.' },
+  { id: 'c44', dimension: 'relationships', title: 'Ask someone about their favourite childhood memory', body: 'A simple question that tends to open something deeper. People rarely get asked about their past with genuine curiosity.' },
+  { id: 'c45', dimension: 'relationships', title: 'Ask the people who know you best how they see you', body: 'Not for validation — for perspective. The people closest to you have access to a version of you that you cannot see yourself.' },
+  { id: 'c47', dimension: 'relationships', title: 'Protect eight hours of sleep tonight', body: 'Then notice how you feel tomorrow morning — specifically. Sleep is the most accessible form of high performance available to you.' },
+]
+
+function scoreChallengeAction(
+  c: ChallengeAction,
+  profile: Record<string, string | string[]>,
+  seenIds: string[],
+  userSeed: number
+): number {
+  if (seenIds.includes(c.id)) return -1
+  let score = 0
+  const motivators = (profile.primaryMotivators as string[] | undefined) ?? []
+  const desire = profile.microDesire as string | undefined
+  const intervention = profile.targetIntervention as string | undefined
+
+  if (c.dimension === 'social') {
+    if (desire === 'Socializing') score += 3
+    if (intervention === 'Better mood') score += 2
+    if (motivators.some(m => /relat|social/i.test(m))) score += 1
+  }
+  if (c.dimension === 'relationships') {
+    if (motivators.some(m => /relat/i.test(m))) score += 3
+    if (intervention === 'Better mood') score += 2
+    if (desire === 'Socializing') score += 1
+  }
+  if (c.dimension === 'business') {
+    if (motivators.some(m => /achiev|money|career|growth/i.test(m))) score += 3
+    if (desire === 'Learning') score += 2
+    if (intervention === 'Better focus') score += 2
+  }
+
+  // Per-user seed offsets ranking so identical profiles get different results
+  score += (userSeed * (c.id.charCodeAt(1) % 7)) % 1.5
+  score += Math.random() * 0.4
+  return score
+}
+
+function pickChallenge(
+  pool: ChallengeAction[],
+  profile: Record<string, string | string[]>,
+  seenIds: string[],
+  userSeed: number,
+  excludeId?: string
+): ChallengeAction {
+  const candidates = pool
+    .filter(c => c.id !== excludeId)
+    .map(c => ({ c, score: scoreChallengeAction(c, profile, seenIds, userSeed) }))
+    .filter(x => x.score >= 0)
+    .sort((a, b) => b.score - a.score)
+  return candidates[0]?.c ?? pool[Math.floor(Math.random() * pool.length)]
+}
+
+export function getActiveChallenges(
+  profile: Record<string, string | string[]>
+): ActiveChallenge[] {
+  const defaultSeed = Math.random()
+  let state: ChallengeState = { challengeId: '', challengeShownAt: '', reminderId: '', reminderShownAt: '', seenIds: [], userSeed: defaultSeed }
+  try {
+    const raw = localStorage.getItem('unicorn_challenge_state')
+    if (raw) state = { userSeed: defaultSeed, ...JSON.parse(raw) }
+    else localStorage.setItem('unicorn_challenge_state', JSON.stringify(state))
+  } catch {}
+
+  const now = Date.now()
+  const seenIds = state.seenIds ?? []
+  const { userSeed } = state
+
+  const challengeExpired = !state.challengeShownAt || now - new Date(state.challengeShownAt).getTime() > DAYS_21
+  const reminderExpired = !state.reminderShownAt || now - new Date(state.reminderShownAt).getTime() > DAYS_14
+
+  let challengeAction: ChallengeAction
+  let reminderAction: ChallengeAction
+
+  if (challengeExpired || !state.challengeId) {
+    challengeAction = pickChallenge(CHALLENGES, profile, seenIds, userSeed)
+    state.challengeId = challengeAction.id
+    state.challengeShownAt = new Date().toISOString()
+    if (!seenIds.includes(challengeAction.id)) {
+      seenIds.push(challengeAction.id)
+      if (seenIds.length > 48) seenIds.splice(0, 24)
+    }
+    state.seenIds = seenIds
+  } else {
+    challengeAction = CHALLENGES.find(c => c.id === state.challengeId) ?? CHALLENGES[0]
+  }
+
+  if (reminderExpired || !state.reminderId) {
+    reminderAction = pickChallenge(CHALLENGES, profile, seenIds, userSeed, challengeAction.id)
+    state.reminderId = reminderAction.id
+    state.reminderShownAt = new Date().toISOString()
+    if (!seenIds.includes(reminderAction.id)) {
+      seenIds.push(reminderAction.id)
+      if (seenIds.length > 48) seenIds.splice(0, 24)
+    }
+    state.seenIds = seenIds
+  } else {
+    reminderAction = CHALLENGES.find(c => c.id === state.reminderId) ?? CHALLENGES[1]
+  }
+
+  try { localStorage.setItem('unicorn_challenge_state', JSON.stringify(state)) } catch {}
+
+  return [
+    { id: challengeAction.id, kind: 'challenge', title: challengeAction.title, body: challengeAction.body, dimension: challengeAction.dimension },
+    { id: reminderAction.id, kind: 'reminder', title: reminderAction.title, body: reminderAction.body, dimension: reminderAction.dimension },
+  ]
+}

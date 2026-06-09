@@ -28,6 +28,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           name: user.name,
           image: user.image,
           onboardingCompleted: user.onboardingCompleted,
+          role: user.role ?? 'user',
         }
       },
     }),
@@ -61,9 +62,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           })
           user.id = newUser._id.toString()
           user.onboardingCompleted = false
+          user.role = 'user'
         } else {
           user.id = existing._id.toString()
           user.onboardingCompleted = existing.onboardingCompleted
+          user.role = existing.role ?? 'user'
         }
       }
       return true
@@ -72,17 +75,22 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         token.id = user.id ?? ''
         token.onboardingCompleted = user.onboardingCompleted ?? false
+        token.role = user.role ?? 'user'
       }
       if (trigger === 'update') {
         await connectDB()
         const dbUser = await User.findById(token.id)
-        if (dbUser) token.onboardingCompleted = dbUser.onboardingCompleted
+        if (dbUser) {
+          token.onboardingCompleted = dbUser.onboardingCompleted
+          token.role = dbUser.role ?? 'user'
+        }
       }
       return token
     },
     async session({ session, token }) {
       session.user.id = token.id
       session.user.onboardingCompleted = token.onboardingCompleted
+      session.user.role = token.role ?? 'user'
       return session
     },
   },

@@ -1,11 +1,11 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { User, LogOut, RefreshCw, ChevronRight } from 'lucide-react'
+import { User, LogOut, RefreshCw, ChevronRight, Camera } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { getUser, clearUser } from '@/lib/mock-auth'
-import { signOut as nextAuthSignOut } from 'next-auth/react'
+import { useSession, signOut as nextAuthSignOut } from 'next-auth/react'
 import { useLanguage } from '@/lib/i18n/LanguageContext'
+import Image from 'next/image'
 
 const QUESTION_LABELS: Record<string, string> = {
   genderIdentity: 'Gender Identity',
@@ -27,23 +27,44 @@ const QUESTION_LABELS: Record<string, string> = {
 export default function ProfilePage() {
   const router = useRouter()
   const { t } = useLanguage()
-  const [user, setUser] = useState<{ name: string; email: string } | null>(null)
+  const { data: session, status } = useSession()
   const [profile, setProfile] = useState<Record<string, string | string[]>>({})
   const [permissions, setPermissions] = useState<Record<string, boolean>>({})
   const [smartwatch, setSmartwatch] = useState('Garmin')
+  const [avatar, setAvatar] = useState<string | null>(null)
+  const [uploading, setUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    const u = getUser()
-    if (!u) { router.replace('/login'); return }
-    setUser(u)
+    if (status === 'loading') return
+    if (status === 'unauthenticated') { router.replace('/login'); return }
     try { setProfile(JSON.parse(localStorage.getItem('unicorn_profile') || '{}')) } catch {}
     try { setPermissions(JSON.parse(localStorage.getItem('unicorn_permissions') || '{}')) } catch {}
     setSmartwatch(localStorage.getItem('unicorn_smartwatch') ?? 'Garmin')
-  }, [router])
+    setAvatar(localStorage.getItem('unicorn_avatar'))
+  }, [status, router])
 
   function signOut() {
-    clearUser()
     nextAuthSignOut({ callbackUrl: '/login' })
+  }
+
+  async function handleAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const form = new FormData()
+      form.append('file', file)
+      const res = await fetch('/api/upload', { method: 'POST', body: form })
+      const data = await res.json()
+      if (data.url) {
+        setAvatar(data.url)
+        localStorage.setItem('unicorn_avatar', data.url)
+      }
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
   }
 
   function reDoOnboarding() {
@@ -65,12 +86,35 @@ export default function ProfilePage() {
       <div className="bg-white rounded-2xl p-6 shadow-sm border border-border">
         <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">{t('profileAccount')}</h2>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-ochre-300 to-velvet-500 flex items-center justify-center">
-            <User className="h-8 w-8 text-white" />
-          </div>
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+            className="relative w-16 h-16 rounded-2xl overflow-hidden bg-gradient-to-br from-ochre-300 to-velvet-500 flex items-center justify-center group"
+          >
+            {avatar ? (
+              <Image src={avatar} alt="Avatar" fill className="object-cover" />
+            ) : (
+              <User className="h-8 w-8 text-white" />
+            )}
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              {uploading ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <Camera className="h-5 w-5 text-white" />
+              )}
+            </div>
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleAvatarChange}
+          />
           <div>
-            <p className="text-xl font-bold text-gray-900">{user?.name}</p>
-            <p className="text-sm text-muted-foreground">{user?.email}</p>
+            <p className="text-xl font-bold text-gray-900">{session?.user?.name}</p>
+            <p className="text-sm text-muted-foreground">{session?.user?.email}</p>
             <p className="text-xs text-sage-600 font-semibold mt-1">{t('profileFreeTrial')}</p>
           </div>
         </div>
