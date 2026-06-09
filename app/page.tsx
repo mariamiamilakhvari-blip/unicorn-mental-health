@@ -103,13 +103,13 @@ export default function LandingPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" className="py-32 bg-[#e8f0f8] dark:bg-gray-800">
+      <section id="how-it-works" className="py-32 bg-[#ddeefa] dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-8 md:px-12">
           <p className="text-xs font-mono tracking-widest text-sky-400 dark:text-sky-500 uppercase mb-16">{t('howLabel')}</p>
           <div className="grid md:grid-cols-3 gap-6">
             {STEPS.map(s => (
-              <div key={s.num} className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
-                <div className="text-7xl font-black text-velvet-300 dark:text-velvet-600 mb-4 leading-none">{s.num}</div>
+              <div key={s.num} className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-sm border border-gray-100 dark:border-gray-700">
+                <div className="text-7xl font-black text-velvet-700 dark:text-velvet-400 mb-4 leading-none">{s.num}</div>
                 <h3 className="text-xl font-bold text-black dark:text-white mb-2">{s.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{s.desc}</p>
               </div>
@@ -119,7 +119,7 @@ export default function LandingPage() {
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="py-32 bg-[#e8f0f8] dark:bg-gray-800">
+      <section id="pricing" className="py-32 bg-[#ddeefa] dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-8 md:px-12">
           <p className="text-xs font-mono tracking-widest text-sky-400 dark:text-sky-500 uppercase mb-16">{t('pricingLabel')}</p>
 
@@ -176,7 +176,7 @@ export default function LandingPage() {
       </section>
 
       {/* ABOUT US */}
-      <section id="about" className="py-32 bg-[#e8f0f8] dark:bg-gray-800">
+      <section id="about" className="py-32 bg-[#ddeefa] dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-8 md:px-12">
           <p className="text-xs font-mono tracking-widest text-sky-400 dark:text-sky-500 uppercase mb-16">{t('aboutLabel')}</p>
           <div className="grid md:grid-cols-2 gap-6">
