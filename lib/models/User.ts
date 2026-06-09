@@ -42,6 +42,21 @@ export interface IUser extends Document {
     stripeCustomerId?: string
     stripeSubscriptionId?: string
   }
+  wellbeingPlan?: {
+    hobby: {
+      name: string
+      category: string
+      duration: 6 | 9
+      learningMethod: string
+      description: string
+      startedAt: Date
+    }
+    ritualIndex: number
+    lastRitualAt?: Date
+    lastReminderAt?: Date
+    lastInvitationAt?: Date
+    invitationIndex: number
+  }
   createdAt: Date
   updatedAt: Date
 }
@@ -67,8 +82,15 @@ const UserSchema = new Schema<IUser>({
   profile: {
     genderIdentity: String,
     ageCohort: String,
-    nationality: String,
+    occupation: String,
     maritalStatus: String,
+    carThoughts: String,
+    neglectedArea: String,
+    preferExperience: String,
+    nudgeType: String,
+    betterLife: String,
+    // legacy fields
+    nationality: String,
     relaxationTriggers: [String],
     fatigueState: String,
     microDesire: String,
@@ -87,6 +109,21 @@ const UserSchema = new Schema<IUser>({
     currentPeriodEnd: Date,
     stripeCustomerId: String,
     stripeSubscriptionId: String,
+  },
+  wellbeingPlan: {
+    hobby: {
+      name: String,
+      category: String,
+      duration: Number,
+      learningMethod: String,
+      description: String,
+      startedAt: Date,
+    },
+    ritualIndex: { type: Number, default: 0 },
+    lastRitualAt: Date,
+    lastReminderAt: Date,
+    lastInvitationAt: Date,
+    invitationIndex: { type: Number, default: 0 },
   },
 }, { timestamps: true })
 
