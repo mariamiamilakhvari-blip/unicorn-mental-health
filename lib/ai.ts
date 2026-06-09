@@ -58,8 +58,10 @@ function profileSummary(profile: Profile): string {
 }
 
 export async function generateRitual(profile: Profile): Promise<{ title: string; body: string }> {
-  const summary = profileSummary(profile)
-  const prompt = `You are a calm, warm well-being companion. Generate a single personalised daily ritual for this person.
+  const FALLBACK = { title: 'A moment just for you', body: 'Find 10 quiet minutes today that belong only to you. No agenda — just rest, breathe and be.' }
+  try {
+    const summary = profileSummary(profile)
+    const prompt = `You are a calm, warm well-being companion. Generate a single personalised daily ritual for this person.
 
 Person profile:
 ${summary}
@@ -73,19 +75,20 @@ Rules:
 - Output ONLY valid JSON: {"title": "...", "body": "..."}
 - No markdown, no extra text`
 
-  const raw = await streamCompletion(prompt)
-  const match = raw.match(/\{[\s\S]*\}/)
-  if (!match) return { title: 'A moment just for you', body: 'Find 10 quiet minutes today that belong only to you. No agenda — just rest, breathe and be.' }
-  try {
+    const raw = await streamCompletion(prompt)
+    const match = raw.match(/\{[\s\S]*\}/)
+    if (!match) return FALLBACK
     return JSON.parse(match[0])
   } catch {
-    return { title: 'A moment just for you', body: 'Find 10 quiet minutes today that belong only to you. No agenda — just rest, breathe and be.' }
+    return FALLBACK
   }
 }
 
 export async function generateInvitation(profile: Profile): Promise<{ title: string; body: string }> {
-  const summary = profileSummary(profile)
-  const prompt = `You are a calm, warm well-being companion. Generate a single personalised relationship invitation for this person. This is sent every 14 days to encourage them to connect with people they love.
+  const FALLBACK = { title: 'Someone is thinking of you', body: 'Reach out to someone you have been meaning to call. A few warm words go further than you think.' }
+  try {
+    const summary = profileSummary(profile)
+    const prompt = `You are a calm, warm well-being companion. Generate a single personalised relationship invitation for this person. This is sent every 14 days to encourage them to connect with people they love.
 
 Person profile:
 ${summary}
@@ -99,19 +102,19 @@ Rules:
 - Output ONLY valid JSON: {"title": "...", "body": "..."}
 - No markdown, no extra text`
 
-  const raw = await streamCompletion(prompt)
-  const match = raw.match(/\{[\s\S]*\}/)
-  if (!match) return { title: 'Someone is thinking of you', body: 'Reach out to someone you have been meaning to call. A few warm words go further than you think.' }
-  try {
+    const raw = await streamCompletion(prompt)
+    const match = raw.match(/\{[\s\S]*\}/)
+    if (!match) return FALLBACK
     return JSON.parse(match[0])
   } catch {
-    return { title: 'Someone is thinking of you', body: 'Reach out to someone you have been meaning to call. A few warm words go further than you think.' }
+    return FALLBACK
   }
 }
 
 export async function generateHobbyPlan(profile: Profile, hobbyName: string, duration: number): Promise<string> {
-  const summary = profileSummary(profile)
-  const prompt = `You are a calm well-being coach. Write a short, personalised learning method description for this person starting the hobby: ${hobbyName} (${duration}-month plan).
+  try {
+    const summary = profileSummary(profile)
+    const prompt = `You are a calm well-being coach. Write a short, personalised learning method description for this person starting the hobby: ${hobbyName} (${duration}-month plan).
 
 Person profile:
 ${summary}
@@ -122,7 +125,6 @@ Rules:
 - Match their learning style (nudge type: ${profile.nudgeType ?? 'gentle'})
 - Output ONLY the plain text description, no JSON, no extra text`
 
-  try {
     return await streamCompletion(prompt)
   } catch {
     return `Spend 15 minutes daily on ${hobbyName}, at whatever pace feels natural to you.`
