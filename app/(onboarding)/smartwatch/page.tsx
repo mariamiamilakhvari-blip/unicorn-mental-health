@@ -24,7 +24,7 @@ export default function SmartwatchPage() {
     <div className="animate-fade-in">
       <div className="mb-8">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-ochre-100 text-velvet-600 text-xs font-semibold mb-4">
-          Step 2 of 3 — Wearable
+          Step 1 of 2 — Wearable
         </div>
         <h1 className="text-2xl font-bold text-gray-900">Connect your wearable</h1>
         <p className="text-muted-foreground mt-1.5">Sync biometric data to power your well-being insights</p>

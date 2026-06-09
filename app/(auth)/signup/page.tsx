@@ -43,7 +43,7 @@ export default function SignupPage() {
         redirect: false,
       })
       if (result?.ok) {
-        router.push('/permissions')
+        router.push('/smartwatch')
       } else {
         setError('Account created but sign-in failed. Please sign in manually.')
         router.push('/login')
@@ -55,7 +55,7 @@ export default function SignupPage() {
   }
 
   function handleOAuth(provider: 'google' | 'apple') {
-    signIn(provider, { callbackUrl: '/permissions' })
+    signIn(provider, { callbackUrl: '/smartwatch' })
   }
 
   return (
