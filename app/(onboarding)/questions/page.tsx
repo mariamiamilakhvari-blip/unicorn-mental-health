@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ChevronLeft, ChevronRight, Loader2 } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ChevronDown, Check, Loader2 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -83,6 +83,7 @@ export default function QuestionsPage() {
   const [textInput, setTextInput] = useState('')
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState('')
+  const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const q = QUESTIONS[step]
   const isLast = step === QUESTIONS.length - 1
@@ -161,17 +162,47 @@ export default function QuestionsPage() {
           <Input placeholder="Type your answer…" value={textInput} onChange={e => setTextInput(e.target.value)} className="h-12 text-base" autoFocus />
         </div>
       ) : q.type === 'select' ? (
-        <div className="mb-8">
-          <select
-            value={currentValue as string}
-            onChange={e => setAnswers(a => ({ ...a, [q.id]: e.target.value }))}
-            className="w-full h-12 px-4 rounded-xl border border-sky-200 bg-white text-sm font-medium text-gray-900 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition-all appearance-none cursor-pointer"
+        <div className="mb-8 relative">
+          <button
+            type="button"
+            onClick={() => setDropdownOpen(v => !v)}
+            className={`w-full h-12 px-4 rounded-xl border text-left text-sm font-medium flex items-center justify-between transition-all ${
+              dropdownOpen
+                ? 'border-sky-400 ring-2 ring-sky-400/20 bg-sky-50'
+                : 'border-sky-200 bg-white hover:border-sky-400'
+            }`}
           >
-            <option value="" disabled>Select an option from the dropdown menu list of the occupations below</option>
-            {q.options?.map(opt => (
-              <option key={opt.label} value={opt.label}>{opt.label}</option>
-            ))}
-          </select>
+            <span className={currentValue ? 'text-gray-900' : 'text-gray-400'}>
+              {(currentValue as string) || 'Select an option from the list below'}
+            </span>
+            <ChevronDown className={`h-4 w-4 text-sky-400 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          {dropdownOpen && (
+            <div className="absolute z-20 top-full left-0 right-0 mt-1.5 bg-white border border-sky-200 rounded-xl shadow-lg shadow-sky-100/50 overflow-hidden max-h-64 overflow-y-auto">
+              {q.options?.map(opt => {
+                const isChosen = currentValue === opt.label
+                return (
+                  <button
+                    key={opt.label}
+                    type="button"
+                    onClick={() => {
+                      setAnswers(a => ({ ...a, [q.id]: opt.label }))
+                      setDropdownOpen(false)
+                    }}
+                    className={`w-full text-left px-4 py-3 text-sm flex items-center justify-between transition-colors ${
+                      isChosen
+                        ? 'bg-sky-50 text-sky-700 font-semibold'
+                        : 'text-gray-800 hover:bg-sky-50 hover:text-sky-700'
+                    }`}
+                  >
+                    {opt.label}
+                    {isChosen && <Check className="h-4 w-4 text-sky-500 shrink-0" />}
+                  </button>
+                )
+              })}
+            </div>
+          )}
         </div>
       ) : (
         <div className={`grid gap-2.5 mb-8 ${q.options && q.options.length > 4 ? 'grid-cols-2' : 'grid-cols-1'}`}>
