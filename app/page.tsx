@@ -37,28 +37,28 @@ export default function LandingPage() {
     <div className={`min-h-screen bg-white text-black${dark ? ' dark' : ''}`}>
 
       {/* NAVBAR */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-8 py-5 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md px-4 py-2 rounded-full border border-gray-100 dark:border-gray-700 shadow-sm font-black text-black dark:text-white">
-          <div className="w-6 h-6 rounded-md bg-velvet-500 flex items-center justify-center text-sm">🦄</div>
+      <header className="fixed top-0 left-0 right-0 z-50 px-8 py-4 flex items-center justify-between bg-white/70 dark:bg-gray-900/80 backdrop-blur-md border-b border-sky-100/50 dark:border-gray-700">
+        <Link href="/" className="flex items-center gap-2 font-black text-black dark:text-white">
+          <div className="w-8 h-8 rounded-full bg-velvet-600 flex items-center justify-center text-sm">🦄</div>
           Unicorn
         </Link>
 
-        <nav className="hidden md:flex bg-white/80 dark:bg-gray-900/80 backdrop-blur-md rounded-full border border-gray-100 dark:border-gray-700 shadow-sm px-3 py-1.5 items-center gap-1 text-sm font-medium">
-          <a href="#how-it-works" className="px-3 py-1.5 text-black dark:text-white hover:text-velvet-500 transition-colors">{t('navHowItWorks')}</a>
-          <a href="#pricing" className="px-3 py-1.5 text-black dark:text-white hover:text-velvet-500 transition-colors">{t('navPricing')}</a>
-          <a href="#about" className="px-3 py-1.5 text-black dark:text-white hover:text-velvet-500 transition-colors">{t('navAbout')}</a>
+        <nav className="hidden md:flex bg-white/90 dark:bg-gray-900/80 backdrop-blur-md rounded-full border border-sky-100 dark:border-gray-700 shadow-sm px-3 py-1.5 items-center gap-1 text-sm font-medium absolute left-1/2 -translate-x-1/2">
+          <a href="#how-it-works" className="px-3 py-1.5 text-slate-700 dark:text-white hover:text-velvet-500 transition-colors">{t('navHowItWorks')}</a>
+          <a href="#pricing" className="px-3 py-1.5 text-slate-700 dark:text-white hover:text-velvet-500 transition-colors">{t('navPricing')}</a>
+          <a href="#about" className="px-3 py-1.5 text-slate-700 dark:text-white hover:text-velvet-500 transition-colors">{t('navAbout')}</a>
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
           <LanguageSwitcher />
           <button
             onClick={() => setDark(v => !v)}
-            className="p-2 rounded-full border border-gray-200 dark:border-gray-600 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 rounded-full border border-sky-200 dark:border-gray-600 bg-white/80 dark:bg-gray-900/80 text-slate-700 dark:text-white hover:bg-sky-50 transition-colors"
             aria-label="Toggle dark mode"
           >
             {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-full border border-gray-300 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md text-black dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">{t('navSignIn')}</Link>
+          <Link href="/login" className="text-sm font-semibold px-4 py-2 rounded-full border border-sky-200 dark:border-gray-600 bg-white/80 dark:bg-gray-900/80 text-slate-800 dark:text-white hover:bg-sky-50 transition-colors">{t('navSignIn')}</Link>
           <Link href="/signup" className="text-sm font-semibold bg-velvet-600 text-white px-5 py-2 rounded-full shadow-md hover:bg-velvet-700 transition-all">
             {t('navGetStarted')}
           </Link>
@@ -90,8 +90,8 @@ export default function LandingPage() {
       </header>
 
       {/* HERO */}
-      <section className="min-h-screen bg-[#e8f0f8] dark:bg-gray-900 flex flex-col items-center justify-center text-center px-8">
-        <p className="text-xs font-mono tracking-widest text-gray-400 dark:text-gray-500 uppercase mb-6">{t('heroLabel')}</p>
+      <section className="min-h-screen bg-gradient-to-b from-[#cce6f7] via-[#ddf0fb] to-[#e8f5fd] dark:bg-gray-900 flex flex-col items-center justify-center text-center px-8">
+        <p className="text-xs font-mono tracking-widest text-sky-400 dark:text-sky-500 uppercase mb-6">{t('heroLabel')}</p>
         <h1 className="text-6xl md:text-8xl font-black text-black dark:text-white leading-none mb-10 max-w-3xl">
           {t('heroTitle1')}{' '}
           {t('heroTitleHighlight')}{' '}
@@ -105,7 +105,7 @@ export default function LandingPage() {
       {/* HOW IT WORKS */}
       <section id="how-it-works" className="py-32 bg-[#e8f0f8] dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-8 md:px-12">
-          <p className="text-xs font-mono tracking-widest text-gray-400 dark:text-gray-500 uppercase mb-16">{t('howLabel')}</p>
+          <p className="text-xs font-mono tracking-widest text-sky-400 dark:text-sky-500 uppercase mb-16">{t('howLabel')}</p>
           <div className="grid md:grid-cols-3 gap-6">
             {STEPS.map(s => (
               <div key={s.num} className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
@@ -121,7 +121,7 @@ export default function LandingPage() {
       {/* PRICING */}
       <section id="pricing" className="py-32 bg-[#e8f0f8] dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-8 md:px-12">
-          <p className="text-xs font-mono tracking-widest text-gray-400 dark:text-gray-500 uppercase mb-16">{t('pricingLabel')}</p>
+          <p className="text-xs font-mono tracking-widest text-sky-400 dark:text-sky-500 uppercase mb-16">{t('pricingLabel')}</p>
 
           <div className="flex mb-10">
             <div className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-full p-1 flex gap-1">
@@ -178,7 +178,7 @@ export default function LandingPage() {
       {/* ABOUT US */}
       <section id="about" className="py-32 bg-[#e8f0f8] dark:bg-gray-800">
         <div className="max-w-7xl mx-auto px-8 md:px-12">
-          <p className="text-xs font-mono tracking-widest text-gray-400 dark:text-gray-500 uppercase mb-16">{t('aboutLabel')}</p>
+          <p className="text-xs font-mono tracking-widest text-sky-400 dark:text-sky-500 uppercase mb-16">{t('aboutLabel')}</p>
           <div className="grid md:grid-cols-2 gap-6">
             <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-md border border-gray-200 dark:border-gray-700">
               <h3 className="text-xl font-bold text-black dark:text-white mb-3">{t('aboutCard2Title')}</h3>
