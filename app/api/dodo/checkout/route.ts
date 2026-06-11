@@ -24,6 +24,15 @@ export async function POST() {
       return_url: `${process.env.NEXT_PUBLIC_APP_URL}/subscription?success=true`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/subscription`,
       metadata: { userId: String(session.user.id) },
+      customization: {
+        theme: 'light',
+        theme_config: {
+          light: {
+            bg_primary: '#EBF5FB',
+            bg_secondary: '#FFFFFF',
+          },
+        },
+      },
     })
 
     return NextResponse.json({ url: checkout.checkout_url })
