@@ -5,7 +5,7 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex">
-      <div className="hidden lg:flex lg:w-1/2 bg-velvet-600 flex-col p-12 text-white relative">
+      <div className="hidden lg:flex lg:w-1/2 bg-velvet-600 flex-col p-12 text-white">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-velvet-500 flex items-center justify-center text-lg">🦄</div>
@@ -14,7 +14,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <LanguageSwitcher variant="dark" />
         </div>
 
-        <div className="absolute inset-0 flex items-center justify-center px-12">
+        <div className="flex-1 flex items-center justify-center px-12">
           <h2 className="text-6xl font-black leading-tight text-center">Start Your Well-Being Journey</h2>
         </div>
       </div>
