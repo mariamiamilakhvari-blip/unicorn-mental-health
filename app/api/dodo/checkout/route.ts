@@ -29,7 +29,7 @@ export async function POST() {
         theme_config: {
           light: {
             bg_primary: '#EBF5FB',
-            bg_secondary: '#FFFFFF',
+            bg_secondary: '#EBF5FB',
           },
         },
       },
